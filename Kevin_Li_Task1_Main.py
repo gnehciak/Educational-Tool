@@ -230,7 +230,10 @@ def algebra_Levels():
         except ValueError:
             print("Please enter a value between 1-5.")
 
-    algebra_Levels_Questions(selection)
+    score = 0
+    for i in range(1, 11):
+        algebra_Levels_Questions(selection, i)
+
 
 
     return 0
@@ -256,9 +259,14 @@ def algebra_Levels_Questions(level, current_question):
     # Add the correct answer in between the list, and record the position, check if the user answers correctly. Go internet and find out how to insert item into a list.
     selection = []
     for i in range(1, 4):
-        selection.append(eval(selected_question[3].replace('!', str(random.randrange(-10*level, 20*level))).replace('@', str(random.randrange(-10*level, 20*level))).replace('#', str(random.randrange(-10*level, 20*level)))))
+        selection.append(eval(selected_question[3].replace('!', str(random.randrange(-8*level, 15*level))).replace('@', str(random.randrange(-8*level, 15*level))).replace('#', str(random.randrange(-8*level, 15*level)))))
 
-    print(selection)
+    selection.append(eval(answer))
+    # Shuffle the answers.
+    random.shuffle(selection)
+    alpha = ['a', 'b', 'c', 'd']
+    for i in range(1, 5):
+        print(alpha[i-1], ')', selection[i-1])
 
 
 
@@ -271,16 +279,16 @@ def geometry():
 def trigonometry():
     return 0
 
+if logIn():
+    clear()
+    mainMenu()
 
 
-algebra_Levels_Questions(3, 3)
 """
 
 check_level(1,1)
 
-if logIn():
-    clear()
-    mainMenu()
+algebra_Levels_Questions(3, 3)
     
 algebra()
 
