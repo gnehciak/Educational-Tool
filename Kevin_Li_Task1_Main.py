@@ -47,13 +47,14 @@ def pause():
 def printWrap(text, length):
     print(textwrap.fill(text, length))
 def check_level(subject, level_no):
-    with open('user_data.csv') as f:
-        reader = csv.reader(f)
+    with open('user_data.csv', 'r') as f:
+        reader = csv.reader(f, delimiter=',')
         for record in reader:
             if record[0] == activeUser:
                 if int(record[subject]) >= level_no:
                     return level_no
-    return '█'
+                return '█'
+
 def sleep(t):
     time.sleep(t)
 
@@ -228,16 +229,29 @@ def algebra_Levels():
         except ValueError:
             print("Please enter a value between 1-5.")
 
+    algebra_Levels_Questions(selection)
+
 
     return 0
 def algebra_Levels_Questions(level):
     with open('algebra_levels_questions.txt') as f:
-        q = f.readlines()
-    question = random.choice(q)
-    question = question.replace('!', str(random.randrange(1, 5 ** level)))
-    question = question.replace('@', str(random.randrange(1, 5 ** level)) if level != 1 else '')
-    question = question.replace('#', str(random.randrange(1, 5 ** level)))
+        line = f.readlines()
+        while True:
+            selected_question = random.choice(line)
+            selected_question = selected_question.split(';')
+            if int(selected_question[0]) <= level and int(selected_question[1]) >= level:
+                break
+
+    question = selected_question[2]
+    exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
+    at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
+    has = str(random.randrange(1, 5 ** level))
+    question = question.replace('!', exc).replace('@', at).replace('#', has)
     print(f"1) {question}")
+    answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+    print(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
+    print(eval(answer))
+
 
 # Geometry
 def geometry():
@@ -248,18 +262,17 @@ def trigonometry():
     return 0
 
 
-
-algebra_Levels_Questions(1)
+if logIn():
+    clear()
+    mainMenu()
 
 """
-
-activeUser = "Kevin"
+algebra_Levels_Questions(2)
+check_level(1,1)
 
 algebra()
 
 
-if logIn():
-    clear()
-    mainMenu()
+
 """
 
