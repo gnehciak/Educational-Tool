@@ -53,7 +53,7 @@ def check_level(subject, level_no):
             if record[0] == activeUser:
                 if int(record[subject]) >= level_no:
                     return level_no
-                return '█'
+        return '█'
 
 def sleep(t):
     time.sleep(t)
@@ -84,7 +84,8 @@ def logIn():
                 ipt_Password = input("Password: ")
                 # If password is correct, return True.
                 if ipt_Password == row[1]:
-                    activeUser = ipt_Username
+                    global activeUser
+                    activeUser= ipt_Username
                     print("Login Successful!")
                     pause()
                     return True
@@ -233,7 +234,7 @@ def algebra_Levels():
 
 
     return 0
-def algebra_Levels_Questions(level):
+def algebra_Levels_Questions(level, current_question):
     with open('algebra_levels_questions.txt') as f:
         line = f.readlines()
         while True:
@@ -247,10 +248,19 @@ def algebra_Levels_Questions(level):
     at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
     has = str(random.randrange(1, 5 ** level))
     question = question.replace('!', exc).replace('@', at).replace('#', has)
-    print(f"1) {question}")
+    print(f"{current_question}) {question}")
     answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
     print(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
     print(eval(answer))
+
+    # Add the correct answer in between the list, and record the position, check if the user answers correctly. Go internet and find out how to insert item into a list.
+    selection = []
+    for i in range(1, 4):
+        selection.append(eval(selected_question[3].replace('!', str(random.randrange(-10*level, 20*level))).replace('@', str(random.randrange(-10*level, 20*level))).replace('#', str(random.randrange(-10*level, 20*level)))))
+
+    print(selection)
+
+
 
 
 # Geometry
@@ -262,14 +272,16 @@ def trigonometry():
     return 0
 
 
+
+algebra_Levels_Questions(3, 3)
+"""
+
+check_level(1,1)
+
 if logIn():
     clear()
     mainMenu()
-
-"""
-algebra_Levels_Questions(2)
-check_level(1,1)
-
+    
 algebra()
 
 
