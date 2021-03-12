@@ -1,0 +1,4 @@
+An algebraic expression is one in which letters are used to represent numbers. We refer to these letters as variables.
+An equation is a mathematical statement that two expressions are equal. The solution of the equation is the value of the unknown (variable) that makes these expressions equal in value.
+For example, to solve the equation 4x + 7 = 19 + x means to find the value of the unknown x such that the value of the expression 4x + 7 is the same as the value of the expression 19 + x. In this case, x = 4 is the solution.
+If x = 4, then 4x + 7 = 4 × 4 + 7 = 23 and 19 + x = 19 + 4 = 23.
