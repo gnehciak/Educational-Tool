@@ -59,8 +59,8 @@ def logIn():
                     if ipt_Username == row[0]:
                         user_found = True
                         break
-                else:
-                    user_found = False
+                    else:
+                        user_found = False
             # If found, ask for password.
             if user_found:
                 ipt_Password = input("Password: ")
@@ -84,11 +84,16 @@ def logIn():
 
 
 def register():
+    # Ask for new username and password.
     print("Register your account")
     ipt_Username = input("Username: ")
     ipt_Password = input("Password: ")
+    # Register the input into the login.csv file.
     with open('login.csv', 'a') as f:
-        f.write(ipt_Username + ',' +ipt_Password)
+        f.writelines('\n' + ipt_Username + ',' +ipt_Password)
+    print("Registration Successful, press Enter to Login...")
+    input()
+    clear()
 
 
 def mainMenu():
