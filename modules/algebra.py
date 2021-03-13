@@ -113,7 +113,7 @@ def algebra_levels():
             clear()
 
         print(f"You finished with a score of {score}/{shared.question_amt}!")
-        if score < shared.question_amt:
+        if score < shared.question_amt and check_level(shared.currentSubject, level + 1) == '█':
             print(f"You will need to score {shared.question_amt} scores to unlock the next level!")
         elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
 
@@ -167,9 +167,12 @@ def algebra_levels_questions(level, current_question):
 
     selection = []
     for i in range(1, 4):
-        selection.append(eval(
-            selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@', str(
-                random.randrange(-8 * level, 15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))))
+        ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@', str(
+            random.randrange(-8 * level, 15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))
+        while eval(ran_answer) in selection:
+            ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@',
+            str(random.randrange(-8 * level,15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))
+        selection.append(eval(ran_answer))
 
     selection.append(answer)
     # Shuffle the answers.

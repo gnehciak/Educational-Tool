@@ -46,7 +46,7 @@ def log_in():
 
 def register():
     # Ask for new username and password.
-    print("Register your account")
+    print("Register your account (case sensitive)")
 
     with open('data/csv/login.csv') as f:
         existing_users = f.readlines()
@@ -59,7 +59,7 @@ def register():
             break
         else:
             print("User already exists.")
-            if parse_input_int(range[1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
+            if parse_input_int([1,2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
                 clear()
                 return 0
 
