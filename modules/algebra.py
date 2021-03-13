@@ -4,7 +4,6 @@ from modules.miscellaneous import *
 
 
 def algebra():
-
     shared.currentSubject = 1
     while True:
         print("""
@@ -40,7 +39,7 @@ def algebra():
                     print("Please enter a value between 1-3.")
             except ValueError:
                 print("Please enter a value between 1-3.")
-        if (selection == 1):
+        if selection == 1:
             return 1
         elif selection == 2:
             return 2
@@ -50,12 +49,10 @@ def algebra():
             raise Exception("Fatal Error.")
 
 
-
-
-def algebra_Learn():
+def algebra_learn():
     with open('data/txt/algebra_learn.txt') as f:
         for line in f:
-            printWrap(line, 100)
+            print_wrap(line, 100)
             pause()
 
     with open('data/csv/user_data.csv', 'r+') as f:
@@ -63,12 +60,11 @@ def algebra_Learn():
         text = f
         text = ''.join(text.readlines()).split('\n')
         for i in text:
-            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject] == 0:
+            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject] == '0':
                 new = i.split(',')
                 new[shared.currentSubject] = '1'
                 new = ','.join(new)
                 text[text.index(i)] = new
-                # print(int(i.split(',')[currentSubject]) + 1)
 
         text = '\n'.join(text)
 
@@ -78,13 +74,13 @@ def algebra_Learn():
     return 0
 
 
-def algebra_Levels():
+def algebra_levels():
     while True:
         print("Choose a level to begin: ")
 
         print(f"""
         ┌───┐   ┌───┐   ┌───┐   ┌───┐   ┌───┐
-        │ {check_level(shared.currentSubject, 1)} │   │ {check_level(shared.currentSubject, 2)} │   │ {check_level(shared.currentSubject, 3)} │   │ {check_level(shared.currentSubject, 4)} │   │ {check_level(shared.currentSubject, 5)} │
+        │ {check_level(shared.currentSubject, 1)} │   │ {check_level(shared.currentSubject, 2)} │   │ {check_level(shared.currentSubject, 3)} │   │ {check_level(shared.currentSubject, 4)} │   │ {check_level(shared.currentSubject, 5)} │ 
         └───┘   └───┘   └───┘   └───┘   └───┘
     """)
 
@@ -112,7 +108,7 @@ def algebra_Levels():
         for i in range(1, shared.question_amt + 1):
             print(f"Question: {i}/{shared.question_amt}")
             print(f"Score: {score}")
-            score += algebra_Levels_Questions(level, i)
+            score += algebra_levels_questions(level, i)
             pause()
             clear()
 
@@ -150,13 +146,13 @@ def algebra_Levels():
         clear()
 
 
-def algebra_Levels_Questions(level, current_question):
+def algebra_levels_questions(level, current_question):
     with open('data/txt/algebra_levels_questions.txt') as f:
         line = f.readlines()
         while True:
             selected_question = random.choice(line)
             selected_question = selected_question.split(';')
-            if int(selected_question[0]) <= level and int(selected_question[1]) >= level:
+            if int(selected_question[0]) <= level <= int(selected_question[1]):
                 break
 
     question = selected_question[2]
@@ -185,16 +181,16 @@ def algebra_Levels_Questions(level, current_question):
 
     while True:
         try:
-            user_Answer = input("---> ").lower()
-            if user_Answer in answers:
-                if answers[user_Answer] in range(1, 5):
+            user_answer = input("---> ").lower()
+            if user_answer in answers:
+                if answers[user_answer] in range(1, 5):
                     break
             else:
                 print("Please enter a value from A to D")
         except ValueError:
             print("Please enter a value from A to D")
 
-    if selection[answers[user_Answer] - 1] == answer:
+    if selection[answers[user_answer] - 1] == answer:
         print("Correct!")
         return 1
 

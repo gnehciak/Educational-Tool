@@ -14,7 +14,7 @@ def pause():
     input("Press Enter to Continue...")
 
 
-def printWrap(text, length):
+def print_wrap(text, length):
     print(textwrap.fill(text, length))
 
 
@@ -26,6 +26,7 @@ def check_level(subject, level_no):
                 if int(record[subject]) >= level_no:
                     return level_no
         return '█'
+
 
 def sleep(t):
     time.sleep(t)

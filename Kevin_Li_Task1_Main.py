@@ -2,7 +2,7 @@ from modules.algebra import *
 from modules.login import *
 
 
-def mainMenu():
+def main_menu():
     print("Welcome!")
     print("Choose a course below:")
     print("""
@@ -39,10 +39,10 @@ def mainMenu():
         return 0
 
 
-while logIn():
+while log_in():
     clear()
     while True:
-        subject = mainMenu()
+        subject = main_menu()
         clear()
         if subject == 0:
             break
@@ -51,9 +51,9 @@ while logIn():
                 select = algebra()
                 clear()
                 if select == 1:
-                    algebra_Learn()
+                    algebra_learn()
                 elif select == 2:
-                    algebra_Levels()
+                    algebra_levels()
                 elif select == 3:
                     break
                 clear()
