@@ -8,6 +8,7 @@ activeUser = ''
 question_amt = 3
 currentSubject = 0
 
+
 def useless():
     print("""
                                                               |                                                                                                                   ░░  
@@ -40,13 +41,20 @@ def useless():
                                                               |                                                         ░░▒▒▓▓░░                                                      
 """)
 
+
 # Miscellaneous
 def clear():
     os.system('CLS')
+
+
 def pause():
     input("Press Enter to Continue...")
+
+
 def printWrap(text, length):
     print(textwrap.fill(text, length))
+
+
 def check_level(subject, level_no):
     with open('user_data.csv', 'r') as f:
         reader = csv.reader(f, delimiter=',')
@@ -56,8 +64,10 @@ def check_level(subject, level_no):
                     return level_no
         return '█'
 
+
 def sleep(t):
     time.sleep(t)
+
 
 # Initialisation
 def logIn():
@@ -86,7 +96,7 @@ def logIn():
                 # If password is correct, return True.
                 if ipt_Password == row[1]:
                     global activeUser
-                    activeUser= ipt_Username
+                    activeUser = ipt_Username
                     print("Login Successful!")
                     pause()
                     return True
@@ -102,6 +112,8 @@ def logIn():
                 if int(input()) == 2:
                     clear()
                     register()
+
+
 def register():
     # Ask for new username and password.
     print("Register your account")
@@ -115,6 +127,8 @@ def register():
     print("Registration Successful, press Enter to Login...")
     input()
     clear()
+
+
 def mainMenu():
     print("Welcome!")
     print("Choose a course below:")
@@ -134,147 +148,173 @@ def mainMenu():
 └───┘   ┴ ┴└─┴└─┘└─┘┘└┘└─┘┴ ┴ ┴  ┴ ┴└─ ┴ 
     """)
 
+    print("Enter 0 to sign out.")
+
     while True:
         try:
             selection = int(input("Select a Topic to Begin!\n---> "))
-            break
+            if selection in range(0, 4):
+                break
+            else:
+                print("Please enter a value between 0-3.")
         except ValueError:
             print("Please enter a valid selection.")
-    if (selection == 1):
-        algebra()
 
-    return 0
-
-
+    if selection == 1:
+        return 1
+    elif selection == 0:
+        return 0
 
 
 # Algebra
 def algebra():
-    print("""
-  █████   ██       ██████   ███████  ██████   ██████     █████ 
- ██   ██  ██      ██        ██       ██   ██  ██   ██   ██   ██
- ███████  ██      ██   ███  █████    ██████   ██████    ███████
- ██   ██  ██      ██    ██  ██       ██   ██  ██   ██   ██   ██
- ██   ██  ███████  ██████   ███████  ██████   ██    ██  ██   ██
-""")
-
-
-    print("""
-┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
-│ 1 │  ║  ├┤ ├─┤├┬┘│││
-└───┘  ╩═╝└─┘┴ ┴┴└─┘└┘""")
-
-    print("""
-┌───┐  ╔═╗┌─┐┬  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┬  ┬┌─┐┬  
-│ 2 │  ╚═╗├┤ │  ├┤ │   │   ║  ├┤ └┐┌┘├┤ │  
-└───┘  ╚═╝└─┘┴─┘└─┘└─┘ ┴   ╩═╝└─┘ └┘ └─┘┴─┘""")
-
-    print("""
-┌───┐  ╔╗ ┌─┐┌─┐┬┌─
-│ 3 │  ╠╩╗├─┤│  ├┴┐
-└───┘  ╚═╝┴ ┴└─┘┴ ┴
-""")
-
     while True:
-        try:
-            selection = int(input("---> "))
-            if selection in range(1, 4):
-                break
-            else:
+        print("""
+      █████   ██       ██████   ███████  ██████   ██████     █████ 
+     ██   ██  ██      ██        ██       ██   ██  ██   ██   ██   ██
+     ███████  ██      ██   ███  █████    ██████   ██████    ███████
+     ██   ██  ██      ██    ██  ██       ██   ██  ██   ██   ██   ██
+     ██   ██  ███████  ██████   ███████  ██████   ██    ██  ██   ██
+    """)
+
+        print("""
+    ┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
+    │ 1 │  ║  ├┤ ├─┤├┬┘│││
+    └───┘  ╩═╝└─┘┴ ┴┴└─┘└┘""")
+
+        print("""
+    ┌───┐  ╔═╗┌─┐┬  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┬  ┬┌─┐┬  
+    │ 2 │  ╚═╗├┤ │  ├┤ │   │   ║  ├┤ └┐┌┘├┤ │  
+    └───┘  ╚═╝└─┘┴─┘└─┘└─┘ ┴   ╩═╝└─┘ └┘ └─┘┴─┘""")
+
+        print("""
+    ┌───┐  ╔╗ ┌─┐┌─┐┬┌─
+    │ 3 │  ╠╩╗├─┤│  ├┴┐
+    └───┘  ╚═╝┴ ┴└─┘┴ ┴
+    """)
+
+        while True:
+            try:
+                selection = int(input("---> "))
+                if selection in range(1, 4):
+                    break
+                else:
+                    print("Please enter a value between 1-3.")
+            except ValueError:
                 print("Please enter a value between 1-3.")
-        except ValueError:
-            print("Please enter a value between 1-3.")
-    if (selection == 1):
-        clear()
-        algebra_Learn()
-    elif selection == 2:
-        global currentSubject
-        currentSubject = 1
-        clear()
-        algebra_Levels()
-    elif selection == 3:
-        clear()
-        return 0
-    else:
-        raise Exception("Fatal Error.")
+        if (selection == 1):
+            return 1
+        elif selection == 2:
+            global currentSubject
+            currentSubject = 1
+            return 2
+        elif selection == 3:
+            return 3
+        else:
+            raise Exception("Fatal Error.")
 
-    clear()
-
-
+        clear()
 
     return 0
-def algebra_Learn():
 
+
+def algebra_Learn():
     with open('algebra_learn.txt') as f:
         for line in f:
             printWrap(line, 100)
             pause()
 
+    with open('user_data.csv', 'r+') as f:
+
+        text = f
+        text = ''.join(text.readlines()).split('\n')
+        for i in text:
+            if i.split(',')[0] == activeUser:
+                new = i.split(',')
+                new[currentSubject] = '1'
+                new = ','.join(new)
+                text[text.index(i)] = new
+                # print(int(i.split(',')[currentSubject]) + 1)
+
+        text = '\n'.join(text)
+
+    with open('user_data.csv', 'w') as f:
+        f.writelines(text)
+
     return 0
+
+
 def algebra_Levels():
-
-    print("Choose a level to begin: ")
-
-    print(f"""
-    ┌───┐   ┌───┐   ┌───┐   ┌───┐   ┌───┐
-    │ {check_level(1, 1)} │   │ {check_level(1, 2)} │   │ {check_level(1, 3)} │   │ {check_level(1, 4)} │   │ {check_level(1, 5)} │
-    └───┘   └───┘   └───┘   └───┘   └───┘
-""")
-
-    print("( █ indicates that the level is still locked.)")
-
     while True:
-        try:
-            level = int(input("---> "))
-            if level in range(1, 6):
-                break
-            else:
-                print("Please enter a value between 1-5.")
-        except ValueError:
-            print("Please enter a value between 1-5.")
+        print("Choose a level to begin: ")
 
-    score = 0
-    for i in range(1, question_amt + 1):
-        print(f"Question: {i}/{question_amt}")
-        print(f"Score: {score}")
-        score += algebra_Levels_Questions(level, i)
-        pause()
+        print(f"""
+        ┌───┐   ┌───┐   ┌───┐   ┌───┐   ┌───┐
+        │ {check_level(currentSubject, 1)} │   │ {check_level(currentSubject, 2)} │   │ {check_level(currentSubject, 3)} │   │ {check_level(currentSubject, 4)} │   │ {check_level(currentSubject, 5)} │
+        └───┘   └───┘   └───┘   └───┘   └───┘
+    """)
+
+        print("( █ indicates that the level is still locked.)")
+        print("Enter 0 to go back.")
+        print("Finish the learn section to unlock the first level.")
+
+        while True:
+            try:
+                level = int(input("---> "))
+                if level in range(1, 6):
+                    if check_level(currentSubject, level) == level:
+                        break
+                    print("Level locked!")
+                elif level == 0:
+                    return 0
+                else:
+                    print("Please enter a value between 1-5.")
+            except ValueError:
+                print("Please enter a value between 1-5.")
+
         clear()
 
-    print(f"You finished with a score of {score}/{question_amt}!")
-    if score < question_amt - 1:
-        print(f"You will need to score {question_amt - 1} or above to unlock the next level!")
-    elif score >= question_amt - 1:
+        score = 0
+        for i in range(1, question_amt + 1):
+            print(f"Question: {i}/{question_amt}")
+            print(f"Score: {score}")
+            score += algebra_Levels_Questions(level, i)
+            pause()
+            clear()
 
-        with open('user_data.csv', 'r') as f:
-            reader = csv.reader(f)
-            for record in reader:
-                if record[0] == activeUser:
-                    if int(record[1]) <= 5:
-                        print("Congratulations! You've unlocked the next level:")
-                        print("Level", int(record[1]) + 1, 'unlocked.')
+        print(f"You finished with a score of {score}/{question_amt}!")
+        if score < question_amt:
+            print(f"You will need to score {question_amt} scores to unlock the next level!")
+        elif score == question_amt and check_level(currentSubject, level + 1) == '█' and level < 5:
 
-        with open('user_data.csv', 'r+') as f:
+            with open('user_data.csv', 'r') as f:
+                reader = csv.reader(f)
+                for record in reader:
+                    if record[0] == activeUser:
+                        if int(record[1]) <= 5:
+                            print("Congratulations! You've unlocked the next level:")
+                            print("Level", int(record[1]) + 1, 'unlocked.')
 
-            text = f
-            text = ''.join(text.readlines()).split('\n')
-            for i in text:
-                if i.split(',')[0] == activeUser:
-                    new = i.split(',')
-                    new[currentSubject] = str(int(new[currentSubject]) + 1)
-                    new = ','.join(new)
-                    text[text.index(i)] = new
-                    # print(int(i.split(',')[currentSubject]) + 1)
+            with open('user_data.csv', 'r+') as f:
 
-            text = '\n'.join(text)
+                text = f
+                text = ''.join(text.readlines()).split('\n')
+                for i in text:
+                    if i.split(',')[0] == activeUser:
+                        new = i.split(',')
+                        new[currentSubject] = str(int(new[currentSubject]) + 1)
+                        new = ','.join(new)
+                        text[text.index(i)] = new
+                        # print(int(i.split(',')[currentSubject]) + 1)
 
-        with open('user_data.csv', 'w') as f:
-            f.writelines(text)
+                text = '\n'.join(text)
 
+            with open('user_data.csv', 'w') as f:
+                f.writelines(text)
 
-
+        pause()
+        clear()
     return 0
-
 
 
 def algebra_Levels_Questions(level, current_question):
@@ -297,14 +337,16 @@ def algebra_Levels_Questions(level, current_question):
 
     selection = []
     for i in range(1, 4):
-        selection.append(eval(selected_question[3].replace('!', str(random.randrange(-8*level, 15*level))).replace('@', str(random.randrange(-8*level, 15*level))).replace('#', str(random.randrange(-8*level, 15*level)))))
+        selection.append(eval(
+            selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@', str(
+                random.randrange(-8 * level, 15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))))
 
     selection.append(answer)
     # Shuffle the answers.
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']
     for i in range(1, 5):
-        print('\t', alpha[i-1] + ')', selection[i-1])
+        print('\t', alpha[i - 1] + ')', selection[i - 1])
 
     answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
@@ -327,25 +369,43 @@ def algebra_Levels_Questions(level, current_question):
     return 0
 
 
-
 # Geometry
 def geometry():
     return 0
+
 
 # Trigonometry
 def trigonometry():
     return 0
 
 
+while logIn():
+    clear()
+    while True:
+        subject = mainMenu()
+        clear()
+        if subject == 0:
+            break
+        elif subject == 1:
+            while True:
+                select = algebra()
+                clear()
+                if select == 1:
+                    algebra_Learn()
+                elif select == 2:
+                    algebra_Levels()
+                elif select == 3:
+                    break
+                clear()
+        elif subject == 2:
+            select = geometry()
+        elif subject == 3:
+            select = trigonometry()
+
+"""
 currentSubject = 1
 activeUser = "Kevin"
 algebra_Levels()
-
-
-"""
-if logIn():
-    clear()
-    mainMenu()
     
 check_level(1,1)
 
@@ -356,4 +416,3 @@ algebra()
 
 
 """
-
