@@ -47,7 +47,22 @@ def log_in():
 def register():
     # Ask for new username and password.
     print("Register your account")
-    ipt_username = input("Username: ")
+
+    with open('data/csv/login.csv') as f:
+        existing_users = f.readlines()
+        for i in existing_users:
+            existing_users[existing_users.index(i)] = i.split(',')[0]
+
+    while True:
+        ipt_username = input("Username: ")
+        if ipt_username not in existing_users:
+            break
+        else:
+            print("User already exists.")
+            if parse_input_int(range[1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
+                clear()
+                return 0
+
     ipt_password = input("Password: ")
     # Register the input into the login.csv file.
     with open('data/csv/login.csv', 'a') as f:

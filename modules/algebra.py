@@ -124,6 +124,7 @@ def algebra_levels():
                         if int(record[1]) <= 5:
                             print("Congratulations! You've unlocked the next level:")
                             print("Level", int(record[1]) + 1, 'unlocked.')
+                            break
 
             with open('data/csv/user_data.csv', 'r+') as f:
 

@@ -30,3 +30,14 @@ def check_level(subject, level_no):
 
 def sleep(t):
     time.sleep(t)
+
+
+def parse_input_int(restriction, message, error_message) -> int:
+    while True:
+        try:
+            number = int(input(message))
+            if number in restriction:
+                return number
+            print(error_message)
+        except ValueError:
+            print(error_message)
