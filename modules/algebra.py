@@ -1,10 +1,7 @@
-import csv
-import os
-import time
-import textwrap
 import random
-from Miscellaneous import *
-import shared
+
+from modules.miscellaneous import *
+
 
 def algebra():
 
@@ -56,17 +53,17 @@ def algebra():
 
 
 def algebra_Learn():
-    with open('algebra_learn.txt') as f:
+    with open('data/txt/algebra_learn.txt') as f:
         for line in f:
             printWrap(line, 100)
             pause()
 
-    with open('user_data.csv', 'r+') as f:
+    with open('data/csv/user_data.csv', 'r+') as f:
 
         text = f
         text = ''.join(text.readlines()).split('\n')
         for i in text:
-            if i.split(',')[0] == shared.activeUser:
+            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject] == 0:
                 new = i.split(',')
                 new[shared.currentSubject] = '1'
                 new = ','.join(new)
@@ -75,7 +72,7 @@ def algebra_Learn():
 
         text = '\n'.join(text)
 
-    with open('user_data.csv', 'w') as f:
+    with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
     return 0
@@ -124,7 +121,7 @@ def algebra_Levels():
             print(f"You will need to score {shared.question_amt} scores to unlock the next level!")
         elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
 
-            with open('user_data.csv', 'r') as f:
+            with open('data/csv/user_data.csv', 'r') as f:
                 reader = csv.reader(f)
                 for record in reader:
                     if record[0] == shared.activeUser:
@@ -132,7 +129,7 @@ def algebra_Levels():
                             print("Congratulations! You've unlocked the next level:")
                             print("Level", int(record[1]) + 1, 'unlocked.')
 
-            with open('user_data.csv', 'r+') as f:
+            with open('data/csv/user_data.csv', 'r+') as f:
 
                 text = f
                 text = ''.join(text.readlines()).split('\n')
@@ -146,7 +143,7 @@ def algebra_Levels():
 
                 text = '\n'.join(text)
 
-            with open('user_data.csv', 'w') as f:
+            with open('data/csv/user_data.csv', 'w') as f:
                 f.writelines(text)
 
         pause()
@@ -154,7 +151,7 @@ def algebra_Levels():
 
 
 def algebra_Levels_Questions(level, current_question):
-    with open('algebra_levels_questions.txt') as f:
+    with open('data/txt/algebra_levels_questions.txt') as f:
         line = f.readlines()
         while True:
             selected_question = random.choice(line)

@@ -1,9 +1,10 @@
 import csv
 import os
-import time
 import textwrap
-import random
-import shared
+import time
+
+from modules import shared
+
 
 def clear():
     os.system('CLS')
@@ -18,10 +19,13 @@ def printWrap(text, length):
 
 
 def check_level(subject, level_no):
-    with open('user_data.csv', 'r') as f:
+    with open('data/csv/user_data.csv', 'r') as f:
         reader = csv.reader(f, delimiter=',')
         for record in reader:
             if record[0] == shared.activeUser:
                 if int(record[subject]) >= level_no:
                     return level_no
         return '█'
+
+def sleep(t):
+    time.sleep(t)

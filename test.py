@@ -1,7 +1,7 @@
 # reading the CSV file
-text = open("user_data.csv", "r")
+text = open("data/csv/user_data.csv", "r")
 
-with open('test.csv', 'r+') as f:
+with open('data/csv/test.csv', 'r+') as f:
     text = f
     text = ''.join(text.readlines())
     # search and replace the contents
@@ -20,7 +20,7 @@ with open('test.csv', 'r+') as f:
     text = '\n'.join(text)
 
 # output.csv is the output file opened in write mode 
-x = open("test.csv", "w")
+x = open("data/csv/test.csv", "w")
 x.writelines(text)
 # all the replaced text is written in the output.csv file
 #x.writelines(text)
