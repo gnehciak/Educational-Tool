@@ -5,7 +5,8 @@ import textwrap
 import random
 
 activeUser = ''
-question_amt = 2
+question_amt = 3
+currentSubject = 0
 
 def useless():
     print("""
@@ -187,6 +188,8 @@ def algebra():
         clear()
         algebra_Learn()
     elif selection == 2:
+        global currentSubject
+        currentSubject = 1
         clear()
         algebra_Levels()
     elif selection == 3:
@@ -240,24 +243,34 @@ def algebra_Levels():
 
     print(f"You finished with a score of {score}/{question_amt}!")
     if score < question_amt - 1:
-        print(f"You will need to score {question_amt} or above to unlock the next level!")
+        print(f"You will need to score {question_amt - 1} or above to unlock the next level!")
     elif score >= question_amt - 1:
-        with open('user_data.csv', 'r+') as f:
-            reader = csv.reader(f, delimiter=',')
+
+        with open('user_data.csv', 'r') as f:
+            reader = csv.reader(f)
             for record in reader:
                 if record[0] == activeUser:
                     if int(record[1]) <= 5:
-
                         print("Congratulations! You've unlocked the next level:")
                         print("Level", int(record[1]) + 1, 'unlocked.')
 
         with open('user_data.csv', 'r+') as f:
-            lines = list(f)
-            for i in lines:
-                if i[0] == activeUser:
-                    lines[lines.index(i[0])][1] += 1
-            writer = csv.writer(f)
-            writer.writerows(lines)
+
+            text = f
+            text = ''.join(text.readlines()).split('\n')
+            for i in text:
+                if i.split(',')[0] == activeUser:
+                    new = i.split(',')
+                    new[currentSubject] = str(int(new[currentSubject]) + 1)
+                    new = ','.join(new)
+                    text[text.index(i)] = new
+                    # print(int(i.split(',')[currentSubject]) + 1)
+
+            text = '\n'.join(text)
+
+        with open('user_data.csv', 'w') as f:
+            f.writelines(text)
+
 
 
     return 0
@@ -324,7 +337,7 @@ def trigonometry():
     return 0
 
 
-
+currentSubject = 1
 activeUser = "Kevin"
 algebra_Levels()
 

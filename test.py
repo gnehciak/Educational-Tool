@@ -1,39 +1,35 @@
-class _Getch:
-    """Gets a single character from standard input.  Does not echo to the
-screen."""
-    def __init__(self):
-        try:
-            self.impl = _GetchWindows()
-        except ImportError:
-            self.impl = _GetchUnix()
+# reading the CSV file
+text = open("user_data.csv", "r")
 
-    def __call__(self): return self.impl()
+with open('test.csv', 'r+') as f:
+    text = f
+    text = ''.join(text.readlines())
+    # search and replace the contents
 
+    text = text.split('\n')
+    print(text)
+    for i in text:
+        if i.split(',')[0] == 'Kevin':
+            new = i.split(',')
+            new[1] = str(int(new[1]) + 1)
+            new = ','.join(new)
+            text[text.index(i)] = new
+            print(int(i.split(',')[1]) + 1)
 
-class _GetchUnix:
-    def __init__(self):
-        import tty, sys
+    print(text)
+    text = '\n'.join(text)
 
-    def __call__(self):
-        import sys, tty, termios
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+# output.csv is the output file opened in write mode 
+x = open("test.csv", "w")
+x.writelines(text)
+# all the replaced text is written in the output.csv file
+#x.writelines(text)
+x.close()
 
-
-class _GetchWindows:
-    def __init__(self):
-        import msvcrt
-
-    def __call__(self):
-        import msvcrt
-        return msvcrt.getch()
-
-
-getch = _Getch()
-print(getch)
+"""
+for record in reader:
+                if record[0] == activeUser:
+                    if int(record[1]) <= 5:
+                        print("Congratulations! You've unlocked the next level:")
+                        print("Level", int(record[1]) + 1, 'unlocked.')
+"""
