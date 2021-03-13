@@ -5,7 +5,7 @@ import textwrap
 import random
 
 activeUser = ''
-
+question_amt = 2
 
 def useless():
     print("""
@@ -222,8 +222,8 @@ def algebra_Levels():
 
     while True:
         try:
-            selection = int(input("---> "))
-            if selection in range(1, 6):
+            level = int(input("---> "))
+            if level in range(1, 6):
                 break
             else:
                 print("Please enter a value between 1-5.")
@@ -231,12 +231,39 @@ def algebra_Levels():
             print("Please enter a value between 1-5.")
 
     score = 0
-    for i in range(1, 11):
-        algebra_Levels_Questions(selection, i)
+    for i in range(1, question_amt + 1):
+        print(f"Question: {i}/{question_amt}")
+        print(f"Score: {score}")
+        score += algebra_Levels_Questions(level, i)
+        pause()
+        clear()
 
+    print(f"You finished with a score of {score}/{question_amt}!")
+    if score < question_amt - 1:
+        print(f"You will need to score {question_amt} or above to unlock the next level!")
+    elif score >= question_amt - 1:
+        with open('user_data.csv', 'r+') as f:
+            reader = csv.reader(f, delimiter=',')
+            for record in reader:
+                if record[0] == activeUser:
+                    if int(record[1]) <= 5:
+
+                        print("Congratulations! You've unlocked the next level:")
+                        print("Level", int(record[1]) + 1, 'unlocked.')
+
+        with open('user_data.csv', 'r+') as f:
+            lines = list(f)
+            for i in lines:
+                if i[0] == activeUser:
+                    lines[lines.index(i[0])][1] += 1
+            writer = csv.writer(f)
+            writer.writerows(lines)
 
 
     return 0
+
+
+
 def algebra_Levels_Questions(level, current_question):
     with open('algebra_levels_questions.txt') as f:
         line = f.readlines()
@@ -252,22 +279,39 @@ def algebra_Levels_Questions(level, current_question):
     has = str(random.randrange(1, 5 ** level))
     question = question.replace('!', exc).replace('@', at).replace('#', has)
     print(f"{current_question}) {question}")
-    answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-    print(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    print(eval(answer))
+    answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
+    print(answer)
 
-    # Add the correct answer in between the list, and record the position, check if the user answers correctly. Go internet and find out how to insert item into a list.
     selection = []
     for i in range(1, 4):
         selection.append(eval(selected_question[3].replace('!', str(random.randrange(-8*level, 15*level))).replace('@', str(random.randrange(-8*level, 15*level))).replace('#', str(random.randrange(-8*level, 15*level)))))
 
-    selection.append(eval(answer))
+    selection.append(answer)
     # Shuffle the answers.
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']
     for i in range(1, 5):
-        print(alpha[i-1], ')', selection[i-1])
+        print('\t', alpha[i-1] + ')', selection[i-1])
 
+    answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+    while True:
+        try:
+            user_Answer = input("---> ").lower()
+            if user_Answer in answers:
+                if answers[user_Answer] in range(1, 5):
+                    break
+            else:
+                print("Please enter a value from A to D")
+        except ValueError:
+            print("Please enter a value from A to D")
+
+    if selection[answers[user_Answer] - 1] == answer:
+        print("Correct!")
+        return 1
+
+    print("Incorrect.")
+    return 0
 
 
 
@@ -279,13 +323,17 @@ def geometry():
 def trigonometry():
     return 0
 
-if logIn():
-    clear()
-    mainMenu()
+
+
+activeUser = "Kevin"
+algebra_Levels()
 
 
 """
-
+if logIn():
+    clear()
+    mainMenu()
+    
 check_level(1,1)
 
 algebra_Levels_Questions(3, 3)
