@@ -78,8 +78,7 @@ def logIn():
                 ipt_Password = input("Password: ")
                 # If password is correct, return True.
                 if ipt_Password == row[1]:
-                    global activeUser
-                    activeUser = ipt_Username
+                    shared.activeUser = ipt_Username
                     print("Login Successful!")
                     pause()
                     return True
