@@ -1,5 +1,7 @@
 # Import the algebra Module, to allow the functions algebra etc. to be called.
 from modules.algebra import *
+# Import the algebra Module, to allow the functions algebra etc. to be called.
+from modules.geometry import *
 # Import the login Module, to allow the function login() to be called.
 from modules.login import *
 
@@ -28,22 +30,7 @@ def main_menu():
     print("Enter 0 to sign out.")
 
     # Keep asking for a valid value between 0-3 until a valid one is entered.
-    while True:
-        try:
-            selection = int(input("Select a Topic to Begin!\n---> "))
-            if selection in range(0, 4):
-                break
-            else:
-                print("Please enter a value between 0-3.")
-        except ValueError:
-            print("Please enter a valid selection.")
-
-    # If the value entered is 1, then return 1, which will be used in the main function to call the algebra() function.
-    if selection == 1:
-        return 1
-    # If the value entered is 0, then return 0, which will be used to go back to the login screen.
-    elif selection == 0:
-        return 0
+    return parse_input_int([0, 3], "Select a Topic to Begin!\n---> ", "Please enter a valid selection.")
 
 
 # Keep asking for a valid login detail until the a existing one is entered.
@@ -73,12 +60,29 @@ while log_in():
                 # If the selection is 2, then call the algebra_levels() function.
                 elif select == 2:
                     algebra_levels()
-                # If the seleciton is 3 (back), then break the algebra loop and go back to the main menu.
+                # If the selection is 3 (back), then break the algebra loop and go back to the main menu.
                 elif select == 3:
                     break
                 # Clear the screen before going back to the main menu.
                 clear()
         elif subject == 2:
-            continue
+            print("Hi")
+            while True:
+                # Get the selection for 'learn', 'level', or 'back'.
+                select = geometry()
+                # Clear the screen after selection to get ready for the next function to be called.
+                clear()
+                # If the selection is one, then call the geometry_learn() function. After finishing the learning
+                # process, geometry_learn() will return 0 and go back into the algebra loop.
+                if select == 1:
+                    geometry_learn()
+                # If the selection is 2, then call the geometry_learn() function.
+                elif select == 2:
+                    geometry_levels()
+                # If the selection is 3 (back), then break the geometry loop and go back to the main menu.
+                elif select == 3:
+                    break
+                # Clear the screen before going back to the main menu.
+                clear()
         elif subject == 3:
             continue

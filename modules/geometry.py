@@ -3,15 +3,16 @@ import random
 from modules.miscellaneous import *
 
 
-def algebra():
-    shared.currentSubject = 1
+def geometry():
+    shared.currentSubject = 2
     while True:
         print("""
-      █████  ██       ██████  ███████ ██████  ██████    █████ 
-     ██   ██ ██      ██       ██      ██   ██ ██   ██  ██   ██
-     ███████ ██      ██   ███ █████   ██████  ██████   ███████
-     ██   ██ ██      ██    ██ ██      ██   ██ ██   ██  ██   ██
-     ██   ██ ███████  ██████  ███████ ██████  ██    ██ ██   ██
+ ██████  ███████  ██████  ███    ███ ███████ ████████ ██████  ██    ██     
+██       ██      ██    ██ ████  ████ ██         ██    ██   ██  ██  ██          
+██   ███ █████   ██    ██ ██ ████ ██ █████      ██    ██████    ████           
+██    ██ ██      ██    ██ ██  ██  ██ ██         ██    ██   ██    ██            
+ ██████  ███████  ██████  ██      ██ ███████    ██    ██   ██    ██        
+                                                                                                                                                                                                                                                                       
     """)
 
         print("""
@@ -49,8 +50,8 @@ def algebra():
             raise Exception("Fatal Error.")
 
 
-def algebra_learn():
-    with open('data/txt/algebra_learn.txt') as f:
+def geometry_learn():
+    with open('data/txt/geometry_learn.txt') as f:
         for line in f:
             print_wrap(line, 100)
             pause()
@@ -74,7 +75,7 @@ def algebra_learn():
     return 0
 
 
-def algebra_levels():
+def geometry_levels():
     while True:
         print("Choose a level to begin: ")
 
@@ -108,7 +109,7 @@ def algebra_levels():
         for i in range(1, shared.question_amt + 1):
             print(f"Question: {i}/{shared.question_amt}")
             print(f"Score: {score}")
-            score += algebra_levels_questions(level, i)
+            score += geometry_levels_questions(level, i)
             pause()
             clear()
 
@@ -147,7 +148,7 @@ def algebra_levels():
         clear()
 
 
-def algebra_levels_questions(level, current_question):
+def geometry_levels_questions(level, current_question):
     with open('data/txt/algebra_levels_questions.txt') as f:
         line = f.readlines()
         while True:
