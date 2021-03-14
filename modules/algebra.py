@@ -163,18 +163,21 @@ def algebra_levels_questions(level, current_question):
     question = question.replace('!', exc).replace('@', at).replace('#', has)
     print(f"{current_question}) {question}")
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
+    answer = answer if answer != int(answer) else int(answer)
     print(answer)
 
     selection = []
     for i in range(1, 4):
         ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@', str(
             random.randrange(-8 * level, 15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))
-        while eval(ran_answer) in selection:
+        while eval(ran_answer) in selection or eval(ran_answer) == answer:
             ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@',
             str(random.randrange(-8 * level,15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))
-        selection.append(eval(ran_answer))
+        ran_answer = round(eval(ran_answer), 2)
+        ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
+        selection.append(ran_answer)
 
-    selection.append(answer)
+    selection.append(round(answer, 2))
     # Shuffle the answers.
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']

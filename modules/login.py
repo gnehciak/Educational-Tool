@@ -37,9 +37,7 @@ def log_in():
             # If username not found, give options to retry or register.
             else:
                 print("Account not found.")
-                print("[1] Retry")
-                print("[2] Register")
-                if int(input()) == 2:
+                if parse_input_int([1, 2], "[1] Retry\n[2] Register\n", "Please Enter a valid value.") == 2:
                     clear()
                     register()
 
