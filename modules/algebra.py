@@ -163,7 +163,7 @@ def algebra_levels_questions(level, current_question):
     question = question.replace('!', exc).replace('@', at).replace('#', has)
     print(f"{current_question}) {question}")
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    answer = answer if answer != int(answer) else int(answer)
+    answer = round(answer, 2) if answer != int(answer) else int(answer)
     print(answer)
 
     selection = []
