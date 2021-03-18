@@ -104,7 +104,7 @@ def convert_frames_to_ascii(frames):
 # also, I did have a system call in this function, I think it looks better if we erase the previous
 # frame before we draw the next one and the easiest way I found to do that is through a system
 # call to clear the console, it works on windows platforms but it may not work on linux or macs
-def animate_ascii(ascii_frames, frame_pause=.005, num_iterations=15, clear_prev_frame=True):
+def animate_ascii(ascii_frames, frame_pause=.001, num_iterations=15, clear_prev_frame=True):
     for i in range(num_iterations):
         for frame in ascii_frames:
             print(frame)
@@ -122,7 +122,7 @@ def start_music(musicFileName):
     mixer.music.play()
 
 
-im = Image.open("data/fireworks2.gif")
+im = Image.open("data/fireworks4.gif")
 frames = extract_gif_frames(im, fillEmpty=True)
 ascii_frames = convert_frames_to_ascii(frames)
 with open('data/fireworks.txt', 'w') as f:
