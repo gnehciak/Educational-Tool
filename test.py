@@ -79,11 +79,11 @@ def convert_image_to_ascii(image):
         for x in range(imgx):
             w = float(pixels[x, y]) / 255
             # find closest weight match
-            wf = -1.0;
+            wf = -1.0
             k = -1
             for i in range(len(weights)):
                 if abs(weights[i] - w) <= abs(wf - w):
-                    wf = weights[i];
+                    wf = weights[i]
                     k = i
             output += chr(k + 32)
         output += "\n"
