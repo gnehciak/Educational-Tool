@@ -28,7 +28,7 @@ def check_level(subject, level_no):
         reader = csv.reader(f, delimiter=',')
         for record in reader:
             if record[0] == shared.activeUser:
-                if int(record[subject]) >= level_no:
+                if int(record[subject].split(':')[0]) >= level_no:
                     # If the level requested is smaller than or equal to the level the user is currently in
                     # (from the user_date.csv file), then return the level number.
 

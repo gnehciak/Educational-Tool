@@ -10,8 +10,7 @@ with open('data/fireworks.txt') as f:
         for a in range(length):
             single.append(f[i+a])
         frames.append(''.join(single))
-while True:
-    for frame in frames:
-        print(frame)
-        time.sleep(0.02)
-        #os.system('CLS')
+for frame in frames:
+    print(frame)
+    time.sleep(0.05)
+    os.system('CLS')

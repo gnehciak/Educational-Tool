@@ -66,7 +66,7 @@ def register():
     with open('data/csv/login.csv', 'a') as f:
         f.writelines('\n' + ipt_username + ',' + ipt_password)
     with open('data/csv/user_data.csv', 'a') as f:
-        f.writelines('\n' + ipt_username + ',' + '0' + ',' + '0' + ',' + '0')
+        f.writelines('\n' + ipt_username + ',' + '0:0' + ',' + '0:0' + ',' + '0:0')
     print("Registration Successful, press Enter to Login...")
     input()
     clear()

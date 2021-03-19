@@ -14,6 +14,15 @@ def algebra():
      ██   ██ ███████  ██████  ███████ ██████  ██    ██ ██   ██
     """)
 
+        with open('data/csv/user_data.csv', 'r+') as f:
+
+            text = f
+            text = ''.join(text.readlines()).split('\n')
+            for i in text:
+                if i.split(',')[0] == shared.activeUser:
+                    new = i.split(',')
+                    print("Total points for Algebra:", new[shared.currentSubject].split(':')[1])
+
         print("""
     ┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
     │ 1 │  ║  ├┤ ├─┤├┬┘│││
@@ -60,9 +69,9 @@ def algebra_learn():
         text = f
         text = ''.join(text.readlines()).split('\n')
         for i in text:
-            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject] == '0':
+            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[0] == '0':
                 new = i.split(',')
-                new[shared.currentSubject] = '1'
+                new[shared.currentSubject] = ':'.join(['1', new[shared.currentSubject].split(':')[1]])
                 new = ','.join(new)
                 text[text.index(i)] = new
 
@@ -113,6 +122,28 @@ def algebra_levels():
             clear()
 
         print(f"You finished with a score of {score}/{shared.question_amt}!")
+
+        with open('data/csv/user_data.csv', 'r+') as f:
+
+            text = f
+            text = ''.join(text.readlines()).split('\n')
+            for i in text:
+                if i.split(',')[0] == shared.activeUser:
+                    new = i.split(',')
+                    new[shared.currentSubject] = ':'.join([new[shared.currentSubject].split(':')[0],
+                                                           str(int(new[shared.currentSubject].split(':')[1]) + score)])
+                    print("Total points for Algebra:", new[shared.currentSubject].split(':')[1])
+                    new = ','.join(new)
+                    text[text.index(i)] = new
+
+        text = '\n'.join(text)
+
+        with open('data/csv/user_data.csv', 'w') as f:
+            f.writelines(text)
+
+
+
+
         if score < shared.question_amt and check_level(shared.currentSubject, level + 1) == '█':
             print(f"You will need to score {shared.question_amt} scores to unlock the next level!")
         elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
@@ -121,9 +152,9 @@ def algebra_levels():
                 reader = csv.reader(f)
                 for record in reader:
                     if record[0] == shared.activeUser:
-                        if int(record[1]) <= 5:
+                        if int(record[shared.currentSubject].split(':')[0]) <= 5:
                             print("Congratulations! You've unlocked the next level:")
-                            print("Level", int(record[1]) + 1, 'unlocked.')
+                            print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
                             break
 
             with open('data/csv/user_data.csv', 'r+') as f:
@@ -133,11 +164,10 @@ def algebra_levels():
                 for i in text:
                     if i.split(',')[0] == shared.activeUser:
                         new = i.split(',')
-                        new[shared.currentSubject] = str(int(new[shared.currentSubject]) + 1)
+                        new[shared.currentSubject] = ':'.join([str(int(new[shared.currentSubject].split(':')[0]) + 1), new[shared.currentSubject].split(':')[1]])
                         new = ','.join(new)
                         text[text.index(i)] = new
                         # print(int(i.split(',')[currentSubject]) + 1)
-
                 text = '\n'.join(text)
 
             with open('data/csv/user_data.csv', 'w') as f:

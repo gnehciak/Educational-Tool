@@ -1,10 +1,3 @@
-username,algebra,geometry,trigonometry
-Kevin,5,0,0
-asdf,5,1,0
-fh,0,0,0
-b,2,0,0
-bob,0,0,0
-bo ,0,0,0
-bo,0,0,0
- ,5,1,0
-grok,2,0,0
+username,algebra:score,geometry:score,trigonometry:score
+Kevin,5:12,0:0,0:0
+Bob,0:0,0:0,0:0
