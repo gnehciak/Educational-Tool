@@ -127,41 +127,16 @@ def geometry_levels():
     # If user acquired full score, the next level is locked, and the level attempted is not 5, print congratulations and
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
-
-        # with open('data/csv/user_data.csv') as f:
-
-        with open('data/csv/user_data.csv', 'r+') as f:
-
-            reader = csv.reader(f)
-            for record in reader:
-                if record[0] == shared.activeUser:
-                    if int(record[shared.currentSubject].split(':')[0]) <= 5:
-                        print("Congratulations! You've unlocked the next level:")
-                        print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
-                        break
-
-            text = f
-            text = ''.join(text.readlines()).split('\n')
-            for i in text:
-                if i.split(',')[0] == shared.activeUser:
-                    new = i.split(',')
-                    new[shared.currentSubject] = ':'.join(
-                        [str(int(new[shared.currentSubject].split(':')[0]) + 1),
-                         new[shared.currentSubject].split(':')[1]])
-                    new = ','.join(new)
-                    text[text.index(i)] = new
-                    # print(int(i.split(',')[currentSubject]) + 1)
-            text = '\n'.join(text)
-
-        with open('data/csv/user_data.csv', 'w') as f:
-            f.writelines(text)
+        # Congratulates the player and prints the next level is unlocked
+        set_next_level()
+        # Adds/unlocks the next level to the file
+        add_level()
 
     pause()
     clear()
 
 
 def geometry_levels_questions(level, current_question):
-    """
     with open('data/txt/geometry_levels_questions.txt') as f:
         line = f.readlines()
         while True:
@@ -171,30 +146,27 @@ def geometry_levels_questions(level, current_question):
                 break
 
     question = selected_question[2]
-    exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
-    at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
+    exc = str(random.randrange(1, 5 ** level))
+    at = str(random.randrange(1, 5 ** level))
     has = str(random.randrange(1, 5 ** level))
     question = question.replace('!', exc).replace('@', at).replace('#', has)
     print(f"{current_question}) {question}")
+
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
     answer = round(answer, 2) if answer != int(answer) else int(answer)
     print(answer)
 
     selection = []
     for i in range(1, 4):
-        ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace(
-            '@', str(
-                random.randrange(-8 * level, 15 * level))).replace('#', str(
-            random.randrange(-8 * level, 15 * level)))
+        exc = str(random.randrange(1, 5 ** level))
+        at = str(random.randrange(1, 5 ** level))
+        has = str(random.randrange(1, 5 ** level))
+        ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
-            ran_answer = selected_question[3].replace('!',
-                                                      str(random.randrange(-8 * level, 15 * level))).replace(
-                '@',
-                str(
-                    random.randrange(
-                        -8 * level,
-                        15 * level))).replace(
-                '#', str(random.randrange(-8 * level, 15 * level)))
+            exc = str(random.randrange(1, 5 ** level))
+            at = str(random.randrange(1, 5 ** level))
+            has = str(random.randrange(1, 5 ** level))
+            ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         ran_answer = round(eval(ran_answer), 2)
         ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
         selection.append(ran_answer)
@@ -225,6 +197,5 @@ def geometry_levels_questions(level, current_question):
 
     print("Incorrect.")
 
-    """
     pause()
     return 0

@@ -4,6 +4,7 @@ from modules.miscellaneous import *
 
 
 def algebra():
+    os.system("mode con cols=80 lines=40")
     # Set the current subject to 1:Algebra
     shared.currentSubject = 1
     # Print the main interface
@@ -70,7 +71,7 @@ def algebra_levels():
         level = parse_input_int([0, 5], ' >>> ', "Please enter a value between 1-5.")
         # If input is 0 then return and go back to previous menu
         if level == 0:
-            return 0
+            return False
         # If level is unlocked then break the loop
         if check_level(shared.currentSubject, level) == level:
             break
@@ -125,11 +126,7 @@ def algebra_levels():
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
 
-        #with open('data/csv/user_data.csv') as f:
-
-
-        with open('data/csv/user_data.csv', 'r+') as f:
-
+        with open('data/csv/user_data.csv') as f:
             reader = csv.reader(f)
             for record in reader:
                 if record[0] == shared.activeUser:
@@ -138,7 +135,7 @@ def algebra_levels():
                         print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
                         break
 
-
+        with open('data/csv/user_data.csv', 'r+') as f:
 
             text = f
             text = ''.join(text.readlines()).split('\n')
@@ -157,6 +154,7 @@ def algebra_levels():
 
     pause()
     clear()
+    return True
 
 
 def algebra_levels_questions(level, current_question):

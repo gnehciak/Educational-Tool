@@ -6,6 +6,7 @@ from modules.geometry import *
 from modules.login import *
 
 
+
 # Main menu function, contains the navigation for different topics and logout.
 def main_menu():
     # Prints out awesome stuff!
@@ -59,7 +60,8 @@ while log_in():
                     algebra_learn()
                 # If the selection is 2, then call the algebra_levels() function.
                 elif select == 2:
-                    algebra_levels()
+                    while algebra_levels():
+                        pass
                 # If the selection is 3 (back), then break the algebra loop and go back to the main menu.
                 elif select == 3:
                     break

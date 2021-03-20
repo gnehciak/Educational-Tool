@@ -4,6 +4,25 @@ import textwrap
 import time
 # Import variable from shared. (activeUser)
 from modules import shared
+# Import colorama
+from colorama import init
+
+init()
+
+
+def move(y, x):
+    print(f"\033[%d;%dH" % (y, x))
+
+
+def printp(y, x, txt):
+    move(y, x)
+    print(txt, end='')
+
+
+def inputp(y, x, txt):
+    move(y, x)
+    return input(txt)
+
 
 
 # Clears the screen, only works when launched in Command Line.
@@ -82,3 +101,35 @@ def get_subject_menu():
 \t│ 3 │  ╠╩╗├─┤│  ├┴┐
 \t└───┘  ╚═╝┴ ┴└─┘┴ ┴
 """
+
+
+def set_next_level():
+    with open('data/csv/user_data.csv') as f:
+        reader = csv.reader(f)
+        for record in reader:
+            if record[0] == shared.activeUser:
+                if int(record[shared.currentSubject].split(':')[0]) <= 5:
+                    print("Congratulations! You've unlocked the next level:")
+                    print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
+                    break
+
+
+def add_level():
+    with open('data/csv/user_data.csv', 'r+') as f:
+
+        text = f
+        text = ''.join(text.readlines()).split('\n')
+        for i in text:
+            if i.split(',')[0] == shared.activeUser:
+                new = i.split(',')
+                new[shared.currentSubject] = ':'.join(
+                    [str(int(new[shared.currentSubject].split(':')[0]) + 1),
+                     new[shared.currentSubject].split(':')[1]])
+                new = ','.join(new)
+                text[text.index(i)] = new
+                # print(int(i.split(',')[currentSubject]) + 1)
+        text = '\n'.join(text)
+
+    with open('data/csv/user_data.csv', 'w') as f:
+        f.writelines(text)
+
