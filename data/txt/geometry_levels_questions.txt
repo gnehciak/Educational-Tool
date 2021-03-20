@@ -1,0 +1,2 @@
+1;5;Find the area of a rectangle with length ! and width @;!*@
+1;5;Find the area of a square with side length @;@*@

@@ -66,7 +66,6 @@ while log_in():
                 # Clear the screen before going back to the main menu.
                 clear()
         elif subject == 2:
-            print("Hi")
             while True:
                 # Get the selection for 'learn', 'level', or 'back'.
                 select = geometry()

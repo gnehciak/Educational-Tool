@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\modules\algebra.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\modules\geometry.py">
           <value>
             <Attribute>
@@ -53,6 +60,13 @@
           </value>
         </entry>
         <entry key="\modules\login.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\modules\miscellaneous.py">
           <value>
             <Attribute>
               <option name="separator" value=":" />

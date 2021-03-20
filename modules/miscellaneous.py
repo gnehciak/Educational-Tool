@@ -46,10 +46,39 @@ def sleep(t):
 # Keeps asking for a valid int within a restriction and returns a valid input.
 def parse_input_int(restriction, message, error_message) -> int:
     while True:
+        # Try to parse the input to int
         try:
             number = int(input(message))
+            # If the valid int entered is within the restriction, when return the valid input.
             if restriction[0] <= number <= restriction[1]:
                 return number
             print(error_message)
+        # When cannot parse, print error message and loop again.
         except ValueError:
             print(error_message)
+
+
+def get_score():
+    with open('data/csv/user_data.csv', 'r+') as f:
+        text = f
+        text = ''.join(text.readlines()).split('\n')
+        for i in text:
+            if i.split(',')[0] == shared.activeUser:
+                new = i.split(',')
+                return new[shared.currentSubject].split(':')[1]
+
+
+def get_subject_menu():
+    return """
+\t┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
+\t│ 1 │  ║  ├┤ ├─┤├┬┘│││
+\t└───┘  ╩═╝└─┘┴ ┴┴└─┘└┘
+
+\t┌───┐  ╔═╗┌─┐┬  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┬  ┬┌─┐┬  
+\t│ 2 │  ╚═╗├┤ │  ├┤ │   │   ║  ├┤ └┐┌┘├┤ │  
+\t└───┘  ╚═╝└─┘┴─┘└─┘└─┘ ┴   ╩═╝└─┘ └┘ └─┘┴─┘
+
+\t┌───┐  ╔╗ ┌─┐┌─┐┬┌─
+\t│ 3 │  ╠╩╗├─┤│  ├┴┐
+\t└───┘  ╚═╝┴ ┴└─┘┴ ┴
+"""

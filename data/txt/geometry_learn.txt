@@ -1,0 +1,1 @@
+The area of a shape is the number of square units that it covers. The most common metric units for measuring area are square millimetres, square centimetres, square metres, and square kilometres.
