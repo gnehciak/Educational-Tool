@@ -19,7 +19,7 @@ def log_in():
 \t\t\t\t\t\t     Copyleft © 2021 by Kevin""")
     hor_border = "|______________________________________________________________________________|\n"
     ver_border = "|                                                                              |\n"
-    flt_border = "________________________________________________________________________________\n"
+    flt_border = " ______________________________________________________________________________\n"
     box_border1 = flt_border + ver_border * 2 + hor_border
     box_border2 = hor_border + ver_border * 2 + hor_border
 
