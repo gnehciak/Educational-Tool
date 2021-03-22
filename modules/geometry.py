@@ -8,10 +8,10 @@ def geometry():
     shared.currentSubject = 2
     # Print the main interface
     print("""
-  ██████   ███████   ██████   ███    ███  ███████  ████████  ██████   ██    ██     
- ██        ██       ██    ██  ████  ████  ██          ██     ██   ██   ██  ██          
- ██   ███  █████    ██    ██  ██ ████ ██  █████       ██     ██████     ████           
- ██    ██  ██       ██    ██  ██  ██  ██  ██          ██     ██   ██     ██            
+  ██████   ███████   ██████   ███    ███  ███████  ████████  ██████   ██    ██
+ ██        ██       ██    ██  ████  ████  ██          ██     ██   ██   ██  ██         
+ ██   ███  █████    ██    ██  ██ ████ ██  █████       ██     ██████     ████          
+ ██    ██  ██       ██    ██  ██  ██  ██  ██          ██     ██   ██     ██           
   ██████   ███████   ██████   ██      ██  ███████     ██     ██   ██     ██        
 """)
     # Print the total point returned from the get_score function for Geometry
@@ -128,7 +128,7 @@ def geometry_levels():
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
         # Congratulates the player and prints the next level is unlocked
-        set_next_level()
+        unlock_next_level()
         # Adds/unlocks the next level to the file
         add_level()
 

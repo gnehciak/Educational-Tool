@@ -49,7 +49,7 @@ def log_in():
             if user_found:
                 printp(21, 1, ver_border)
                 move(21, 1)
-                ipt_password = getpass.getpass("| Password: ")
+                ipt_password = stdiomask.getpass("| Password: ")
                 # If password is correct, return True.
                 if ipt_password == row[1]:
                     shared.activeUser = ipt_username
@@ -64,47 +64,55 @@ def log_in():
                     continue
             # If username not found, give options to retry or register.
             else:
-                printp(11, 1, ver_border.strip())
-                printp(11, 1, "| Account not found.")
+                printp(13, 1, ver_border.strip())
+                printp(14, 1, ver_border.strip())
+                printp(15, 1, ver_border.strip())
+                printp(13, 1, "| Account not found.")
                 while True:
                     # Try to parse the input to int
                     try:
-                        number = int(inputp(12, 1, "| [1] Retry  [2] Register\n| >>> "))
+                        number = int(inputp(14, 1, "| [1] Retry  [2] Register\n| >>> "))
                         # If the valid int entered is within the restriction, when return the valid input.
                         if 1 <= number <= 2:
-                            printp(16, 1, ver_border)
                             printp(18, 1, ver_border)
-                            printp(11, 1, 4 * ver_border)
-                            printp(11, 1, "| Please log in with your details to continue.")
-                            printp(18, 1, "| Password: ")
+                            printp(12, 1, ver_border)
+                            printp(13, 1, ver_border)
+                            printp(14, 1, ver_border)
+                            printp(15, 1, ver_border)
+                            printp(13, 1, "| Please log in with your details to continue.")
+                            printp(21, 1, ver_border)
+                            printp(21, 1, "| Password: ")
                             break
-                        printp(14, 1, "| Please Enter a valid value.")
                         printp(13, 1, ver_border.strip())
-                    # When cannot parse, print error message and loop again.
+                        printp(13, 1, "| Please Enter a valid value.")
+                        printp(15, 1, ver_border.strip())
+                        # When cannot parse, print error message and loop again.
                     except ValueError:
-                        printp(14, 1, "| Please Enter a valid value.")
                         printp(13, 1, ver_border.strip())
+                        printp(13, 1, "| Please Enter a valid value.")
+                        printp(15, 1, ver_border.strip())
                 if number == 2:
                     clear()
                     register()
                     print("""
-\t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗
+\t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™
 \t██╔═══██╗██║   ██║██║╚══███╔╝██╔════╝██║     ██╔═══██╗╚══██╔══╝
 \t██║   ██║██║   ██║██║  ███╔╝ █████╗  ██║     ██║   ██║   ██║   
 \t██║█╗ ██║██║   ██║██║ ███╔╝  ██╔══╝  ██║     ██║   ██║   ██║   
 \t╚██████╔╝╚██████╔╝██║███████╗███████╗███████╗╚██████╔╝   ██║   
 \t ╚══█╗═╝  ╚═════╝ ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝    ╚═╝   
-""")
-
-                    hor_border = "|------------------------------------------------------------------------------|\n"
+\t\t\t\t\t\t     Copyleft © 2021 by Kevin""")
+                    hor_border = "|______________________________________________________________________________|\n"
                     ver_border = "|                                                                              |\n"
-                    box_border = hor_border + ver_border + hor_border
+                    flt_border = " ______________________________________________________________________________\n"
+                    box_border1 = flt_border + ver_border * 2 + hor_border
+                    box_border2 = hor_border + ver_border * 2 + hor_border
 
-                    print(box_border, 4 * ver_border, box_border, ver_border, hor_border.strip(), sep='', end='')
-                    printp(9, 1, "|\t\t\t      Welcome to Quizelot")
-                    printp(11, 1, "| Please log in with your details to continue.")
-                    printp(16, 1, "| Username: ")
-                    printp(18, 1, "| Password: ")
+                    print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
+                    printp(10, 1, "|\t\t\t      Welcome to Quizelot")
+                    printp(13, 1, "| Please log in with your details to continue.")
+                    printp(18, 1, "| Username: ")
+                    printp(21, 1, "| Password: ")
 
 
 

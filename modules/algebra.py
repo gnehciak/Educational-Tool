@@ -126,31 +126,9 @@ def algebra_levels():
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
 
-        with open('data/csv/user_data.csv') as f:
-            reader = csv.reader(f)
-            for record in reader:
-                if record[0] == shared.activeUser:
-                    if int(record[shared.currentSubject].split(':')[0]) <= 5:
-                        print("Congratulations! You've unlocked the next level:")
-                        print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
-                        break
+        unlock_next_level()
 
-        with open('data/csv/user_data.csv', 'r+') as f:
-
-            text = f
-            text = ''.join(text.readlines()).split('\n')
-            for i in text:
-                if i.split(',')[0] == shared.activeUser:
-                    new = i.split(',')
-                    new[shared.currentSubject] = ':'.join([str(int(new[shared.currentSubject].split(':')[0]) + 1),
-                                                           new[shared.currentSubject].split(':')[1]])
-                    new = ','.join(new)
-                    text[text.index(i)] = new
-                    # print(int(i.split(',')[currentSubject]) + 1)
-            text = '\n'.join(text)
-
-        with open('data/csv/user_data.csv', 'w') as f:
-            f.writelines(text)
+        add_level()
 
     pause()
     clear()

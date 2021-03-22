@@ -2,6 +2,7 @@ import csv
 import os
 import textwrap
 import time
+import stdiomask
 # Import variable from shared. (activeUser)
 from modules import shared
 # Import colorama
@@ -103,7 +104,7 @@ def get_subject_menu():
 """
 
 
-def set_next_level():
+def unlock_next_level():
     with open('data/csv/user_data.csv') as f:
         reader = csv.reader(f)
         for record in reader:
