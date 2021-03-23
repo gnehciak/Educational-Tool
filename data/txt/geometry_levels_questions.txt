@@ -1,4 +1,16 @@
-1;5;Find the area of a rectangle with length ! and width @;!*@
 1;5;Find the area of a square with side length @;@**2
-1;5;Find the volume of a cube with side length @;@**3
-1;5;Find the volume of a rectangle with length !, width @, and height #;!*@*#
+2;5;Find the surface area of a cube with side length @;6 * (@**2)
+2;5;Find the volume of a cube with side length @;@**3
+1;5;Find the area of a rectangle with length ! and width @;!*@
+2;5;Find the surface area of a rectangular prism with length ! and width @, and height #;2*!*@ + 2*@*# + 2*!*#
+2;5;Find the volume of a rectangular prism with length !, width @, and height #;!*@*#
+2;5;Find the area of a triangle with base length ! and height @;0.5*!*@
+2;5;Find the volume of a triangular prism with base area ! and height @;!*@
+4;5;Find the volume of a triangular prism with base length !, height @, and length #;1/2*(!*@)*#
+4;5;Find the volume of a triangular prism with base length !, height @, and length #;1/2*(!*@)*#
+3;5;Find the circumference of a circle with radius !;2*!*3.14159265
+3;5;Find the circumference of a circle with diameter !;!*3.14159265
+3;5;Find the area of a circle with radius !;! ** 2 * 3.14159265
+3;5;Find the area of a circle with diameter !;(!*2) ** 2 * 3.14159265
+4;5;Find the volume of a sphere with radius !;4/3 * 3.14159265 * ! ** 3
+4;5;Find the volume of a sphere with diameter !;4/3 * 3.14159265 * (!*2) ** 3

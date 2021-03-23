@@ -1,21 +1,22 @@
 import random
-
+import fractions
 from modules.miscellaneous import *
 
 
-def geometry():
-    # Set the current subject to 2:Geometry
-    shared.currentSubject = 2
+def frac_n_dec():
+    # os.system("mode con cols=80 lines=40")
+    # Set the current subject to 3:Fraction
+    shared.currentSubject = 3
     # Print the main interface
     print("""
-  ██████   ███████   ██████   ███    ███  ███████  ████████  ██████   ██    ██
- ██        ██       ██    ██  ████  ████  ██          ██     ██   ██   ██  ██         
- ██   ███  █████    ██    ██  ██ ████ ██  █████       ██     ██████     ████          
- ██    ██  ██       ██    ██  ██  ██  ██  ██          ██     ██   ██     ██           
-  ██████   ███████   ██████   ██      ██  ███████     ██     ██   ██     ██        
+███████ ██████   █████   ██████ ████████ ██  ██████  ███    ██ ███████ 
+██      ██   ██ ██   ██ ██         ██    ██ ██    ██ ████   ██ ██      
+█████   ██████  ███████ ██         ██    ██ ██    ██ ██ ██  ██ ███████ 
+██      ██   ██ ██   ██ ██         ██    ██ ██    ██ ██  ██ ██      ██ 
+██      ██   ██ ██   ██  ██████    ██    ██  ██████  ██   ████ ███████
 """)
-    # Print the total point returned from the get_score function for Geometry
-    print(" >>> Total points for Geometry:", get_score())
+    # Print the total point returned from the get_score function for Fraction
+    print(" >>> Total points for Fraction:", get_score())
     # Print the subject menu
     print(get_subject_menu())
 
@@ -25,9 +26,9 @@ def geometry():
     return selection
 
 
-def geometry_learn():
-    # Display the geometry learn text
-    with open('data/txt/geometry_learn.txt') as f:
+def frac_n_dec_learn():
+    # Display the fraction learn text
+    with open('data/txt/fraction_learn.txt') as f:
         for line in f:
             print_wrap(line, 100)
             pause()
@@ -36,8 +37,7 @@ def geometry_learn():
         text = f
         text = ''.join(text.readlines()).split('\n')
         for i in text:
-            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[
-                0] == '0':
+            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[0] == '0':
                 new = i.split(',')
                 new[shared.currentSubject] = '1:0'
                 new = ','.join(new)
@@ -49,9 +49,9 @@ def geometry_learn():
     return 0
 
 
-def geometry_levels():
-    # Print the total point returned from the get_score function for Geometry
-    print(" >>> Total points for Geometry:", get_score())
+def frac_n_dec_levels():
+    # Print the total point returned from the get_score function for Fraction
+    print(" >>> Total points for Fraction:", get_score())
     print("Choose a level to begin: ")
 
     # Print out level boxes with the unlocked levels from check_level function.
@@ -64,8 +64,7 @@ def geometry_levels():
     # Print helpful stuff
     print("( █ indicates that the level is still locked.)")
     print("Enter 0 to go back.")
-    print("Finish the learn section to unlock the first level.") if check_level(shared.currentSubject,
-                                                                                1) == '█' else ''
+    print("Finish the learn section to unlock the first level.") if check_level(shared.currentSubject, 1) == '█' else ''
 
     # Get the level selection from user
     while True:
@@ -83,14 +82,14 @@ def geometry_levels():
 
     # Set the score to 0
     score = 0
-    # Ask the set question_amt var amount of questions and add 1 to score if the geometry_levels_questions returns 1
+    # Ask the set question_amt var amount of questions and add 1 to score if the fraction_levels_questions returns 1
     for i in range(1, shared.question_amt + 1):
         # Print the current questions number
         print(f"Question: {i}/{shared.question_amt}")
         # Print the current score
         print(f"Score: {score}")
-        # Call the geometry_levels_questions function and add the returned value to the score
-        score += geometry_levels_questions(level, i)
+        # Call the fraction_levels_questions function and add the returned value to the score
+        score += frac_n_dec_levels_questions(level, i)
         # Pause
         pause()
         clear()
@@ -98,7 +97,7 @@ def geometry_levels():
     # Print the final finishing score
     print(f"You finished with a score of {score}/{shared.question_amt}!")
 
-    # Add the final score to the total score for geometry
+    # Add the final score to the total score for fraction
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
         text = ''.join(text.readlines()).split('\n')
@@ -107,11 +106,10 @@ def geometry_levels():
                 new = i.split(',')
                 new[shared.currentSubject] = ':'.join([new[shared.currentSubject].split(':')[0],
                                                        str(int(
-                                                           new[shared.currentSubject].split(':')[
-                                                               1]) + score * level)])
+                                                           new[shared.currentSubject].split(':')[1]) + score * level)])
                 print()
                 print('-------------------------')
-                print(f"Total points for Geometry: {new[shared.currentSubject].split(':')[1]} ↑{score * level}")
+                print(f"Total points for Fraction: {new[shared.currentSubject].split(':')[1]} ↑{score * level}")
                 print('-------------------------')
                 print()
                 new = ','.join(new)
@@ -127,9 +125,9 @@ def geometry_levels():
     # If user acquired full score, the next level is locked, and the level attempted is not 5, print congratulations and
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
-        # Congratulates the player and prints the next level is unlocked
+
         unlock_next_level()
-        # Adds/unlocks the next level to the file
+
         add_level()
 
     pause()
@@ -137,8 +135,8 @@ def geometry_levels():
     return True
 
 
-def geometry_levels_questions(level, current_question):
-    with open('data/txt/geometry_levels_questions.txt') as f:
+def frac_n_dec_levels_questions(level, current_question):
+    with open('data/txt/fraction_levels_questions.txt') as f:
         line = f.readlines()
         while True:
             selected_question = random.choice(line)
@@ -147,32 +145,31 @@ def geometry_levels_questions(level, current_question):
                 break
 
     question = selected_question[2]
-    exc = gen_rand_geometry(level)
-    at = gen_rand_geometry(level)
-    has = gen_rand_geometry(level)
-    question = question.replace('!', exc).replace('@', at).replace('#', has)
-    print_wrap(f"{current_question}) {question}", 60)
+    exc = str(random.randrange(0, 5 ** level))
+    at = str(random.randrange(1, 5 ** level))
+    has = str(round(random.uniform(1, 3 ** level), round(level * 0.65)))
+    question = eval(question.replace('!', exc).replace('@', at).replace('#', has))
+    print(f"{current_question}) {question}")
 
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    answer = round(answer, 3) if answer != int(answer) else int(answer)
     print(answer)
 
     selection = []
     for i in range(1, 4):
-        exc = gen_rand_geometry(level)
-        at = gen_rand_geometry(level)
-        has = gen_rand_geometry(level)
+        # Generate random
+        exc = str(random.randrange(0, 5 ** level))
+        at = str(random.randrange(1, 5 ** level))
+        has = str(round(random.uniform(1, 3 ** level), round(level/2)))
+        # Replace random
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-        while eval(ran_answer) in selection or str(eval(ran_answer)) == str(answer):
-            exc = gen_rand_geometry(level)
-            at = gen_rand_geometry(level)
-            has = gen_rand_geometry(level)
+        while eval(ran_answer) in selection or eval(ran_answer) == answer:
+            exc = str(random.randrange(0, 5 ** level))
+            at = str(random.randrange(1, 5 ** level))
+            has = str(round(random.uniform(1, 3 ** level), round(level/2)))
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-        ran_answer = round(eval(ran_answer), 3)
-        ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
-        selection.append(ran_answer)
+        selection.append(eval(ran_answer))
 
-    selection.append(round(answer, 3))
+    selection.append(answer)
     # Shuffle the answers.
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']

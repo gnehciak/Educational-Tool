@@ -4,7 +4,7 @@ from modules.miscellaneous import *
 
 
 def algebra():
-    os.system("mode con cols=80 lines=40")
+    #os.system("mode con cols=80 lines=40")
     # Set the current subject to 1:Algebra
     shared.currentSubject = 1
     # Print the main interface
@@ -120,7 +120,7 @@ def algebra_levels():
         f.writelines(text)
 
     # If score < question amount, then print not enough score to unlock next level.
-    if score < shared.question_amt and check_level(shared.currentSubject, level + 1) == '█':
+    if score < shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
         print(f"You will need to score {shared.question_amt} scores to unlock the next level!")
     # If user acquired full score, the next level is locked, and the level attempted is not 5, print congratulations and
     # write the new data to the files.
@@ -156,15 +156,17 @@ def algebra_levels_questions(level, current_question):
 
     selection = []
     for i in range(1, 4):
-        ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@', str(
-            random.randrange(-8 * level, 15 * level))).replace('#', str(random.randrange(-8 * level, 15 * level)))
+        # Generate random
+        exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
+        at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
+        has = str(random.randrange(1, 5 ** level))
+        # Replace random
+        ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
-            ran_answer = selected_question[3].replace('!', str(random.randrange(-8 * level, 15 * level))).replace('@',
-                                                                                                                  str(
-                                                                                                                      random.randrange(
-                                                                                                                          -8 * level,
-                                                                                                                          15 * level))).replace(
-                '#', str(random.randrange(-8 * level, 15 * level)))
+            exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
+            at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
+            has = str(random.randrange(1, 5 ** level))
+            ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         ran_answer = round(eval(ran_answer), 2)
         ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
         selection.append(ran_answer)

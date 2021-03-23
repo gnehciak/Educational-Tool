@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\txt\geometry_levels_questions.txt">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\login.csv">
           <value>
             <Attribute>
@@ -49,6 +56,20 @@
           <value>
             <Attribute>
               <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\modules\frac_n_dec.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\modules\fractions.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>

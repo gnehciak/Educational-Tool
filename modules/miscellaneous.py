@@ -2,7 +2,8 @@ import csv
 import os
 import textwrap
 import time
-import stdiomask
+import random
+
 # Import variable from shared. (activeUser)
 from modules import shared
 # Import colorama
@@ -23,7 +24,6 @@ def printp(y, x, txt):
 def inputp(y, x, txt):
     move(y, x)
     return input(txt)
-
 
 
 # Clears the screen, only works when launched in Command Line.
@@ -134,3 +134,6 @@ def add_level():
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
+
+def gen_rand_geometry(level):
+    return str(random.randrange(1, 2 ** level) + random.choice([0, 0.5, 1, 1.5]) if level < 3 else str(random.randrange(1, 3 ** level) + random.choice([0, 0.25, 0.5, 0.75])))

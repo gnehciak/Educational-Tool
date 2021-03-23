@@ -1,6 +1,6 @@
 from modules.miscellaneous import *
-import getpass
 import sys
+import stdiomask
 
 if not sys.stdin.isatty():
     for i in range(1):

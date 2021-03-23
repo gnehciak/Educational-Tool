@@ -2,6 +2,6 @@
 # Used to retrieve and store user progress.
 activeUser = ''
 # Setting for how many questions to ask in the levels function.
-question_amt = 3
+question_amt = 3000
 # Changed every time a topic function is called to write and read the correct progress for the particular subject.
 currentSubject = 0
