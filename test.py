@@ -125,7 +125,7 @@ def start_music(musicFileName):
 im = Image.open("data/fireworks4.gif")
 frames = extract_gif_frames(im, fillEmpty=True)
 ascii_frames = convert_frames_to_ascii(frames)
-with open('data/fireworks.txt', 'w') as f:
+with open('data/txt/fireworks.txt', 'w') as f:
     f.writelines(ascii_frames)
 # start_music("song.mp3")
 time.sleep(

@@ -59,6 +59,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\modules\fireworks.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\modules\frac_n_dec.py">
           <value>
             <Attribute>

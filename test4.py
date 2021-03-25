@@ -1,11 +1,4 @@
-import fractions
+import random
+dic = {"question1":"answer", "question2":"answer", "question3":"answer"}
 
-a = fractions.Fraction(29,3).limit_denominator()
-print(a)
-
-num = int(input('Type numerator'))
-dem = int(input('Type denominator'))
-
-a = num // dem
-b = num % dem
-print ('The mixed number is {} and {}/{}'.format(a, b, dem))
+print(list(dic.keys())[random.randrange(0, len(list(dic.keys())))])

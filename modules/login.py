@@ -1,6 +1,7 @@
 from modules.miscellaneous import *
 import sys
 import stdiomask
+from modules.fireworks import *
 
 if not sys.stdin.isatty():
     for i in range(1):
@@ -25,7 +26,7 @@ def log_in():
 
     print(box_border1, 4*ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
     printp(10, 1, "|\t\t\t      Welcome to Quizelot")
-    printp(13, 1, "| Please log in with your details to continue.")
+    printp(13, 1, "| Please log in with your details to continue. Enter 'exit' to close.")
     printp(18, 1, "| Username: ")
     printp(21, 1, "| Password: ")
 
@@ -33,6 +34,13 @@ def log_in():
     while True:
         # Ask for username
         ipt_username = inputp(18, 1, "| Username: ")
+        if ipt_username == 'exit':
+            os.system("mode con cols=110 lines=35")
+            os.system('CLS')
+            printp(11, 1, '\t\t\tBye~')
+            print_firework()
+            time.sleep(1)
+            return False
         # Open the login.csv file to check if username instance exists
         with open('data/csv/login.csv', 'r') as f:
             reader = csv.reader(f, delimiter=',')
@@ -127,6 +135,9 @@ def register():
 
     while True:
         ipt_username = input("Username: ")
+        if ipt_username == 'exit':
+            clear()
+            return 0
         if ipt_username not in existing_users:
             break
         else:
