@@ -8,11 +8,11 @@ def geometry():
     shared.currentSubject = 2
     # Print the main interface
     print("""
-  ██████   ███████   ██████   ███    ███  ███████  ████████  ██████   ██    ██
- ██        ██       ██    ██  ████  ████  ██          ██     ██   ██   ██  ██         
- ██   ███  █████    ██    ██  ██ ████ ██  █████       ██     ██████     ████          
- ██    ██  ██       ██    ██  ██  ██  ██  ██          ██     ██   ██     ██           
-  ██████   ███████   ██████   ██      ██  ███████     ██     ██   ██     ██        
+  ██████  ███████  ██████  ███    ███ ███████ ████████ ██████  ██    ██
+ ██       ██      ██    ██ ████  ████ ██         ██    ██   ██  ██  ██         
+ ██   ███ █████   ██    ██ ██ ████ ██ █████      ██    ██████    ████          
+ ██    ██ ██      ██    ██ ██  ██  ██ ██         ██    ██   ██    ██           
+  ██████  ███████  ██████  ██      ██ ███████    ██    ██   ██    ██        
 """)
     # Print the total point returned from the get_score function for Geometry
     print(" >>> Total points for Geometry:", get_score())
@@ -32,20 +32,7 @@ def geometry_learn():
             print_wrap(line, 100)
             pause()
     # Set the level to 1, unlocks the first level.
-    with open('data/csv/user_data.csv', 'r+') as f:
-        text = f
-        text = ''.join(text.readlines()).split('\n')
-        for i in text:
-            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[
-                0] == '0':
-                new = i.split(',')
-                new[shared.currentSubject] = '1:0'
-                new = ','.join(new)
-                text[text.index(i)] = new
-        text = '\n'.join(text)
-    # Write the File
-    with open('data/csv/user_data.csv', 'w') as f:
-        f.writelines(text)
+    unlock_first_level()
     return 0
 
 

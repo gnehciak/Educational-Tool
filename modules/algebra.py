@@ -1,19 +1,19 @@
-import random
-
+# Import the miscellaneous module, for functions such as get_subject_menu()
 from modules.miscellaneous import *
 
 
+# The algebra() function, takes care of the menu navigation as well as an overview of the player's score.
 def algebra():
-    #os.system("mode con cols=80 lines=40")
+    # os.system("mode con cols=80 lines=40")
     # Set the current subject to 1:Algebra
     shared.currentSubject = 1
     # Print the main interface
     print("""
-  █████   ██        ██████   ███████  ██████   ██████     █████ 
- ██   ██  ██       ██        ██       ██   ██  ██   ██   ██   ██
- ███████  ██       ██   ███  █████    ██████   ██████    ███████
- ██   ██  ██       ██    ██  ██       ██   ██  ██   ██   ██   ██
- ██   ██  ███████   ██████   ███████  ██████   ██    ██  ██   ██
+  █████  ██       ██████  ███████ ██████  ██████    █████ 
+ ██   ██ ██      ██       ██      ██   ██ ██   ██  ██   ██
+ ███████ ██      ██   ███ █████   ██████  ██████   ███████
+ ██   ██ ██      ██    ██ ██      ██   ██ ██   ██  ██   ██
+ ██   ██ ███████  ██████  ███████ ██████  ██    ██ ██   ██
 """)
     # Print the total point returned from the get_score function for Algebra
     print(" >>> Total points for Algebra:", get_score())
@@ -26,29 +26,23 @@ def algebra():
     return selection
 
 
+# Takes care of the learning section of algebra, displays a sequence of information about the subject and unlocks level
+# 1 by writing the file if the level is still locked.
 def algebra_learn():
-    # Display the algebra learn text
+    # Displays the algebra learn text
     with open('data/txt/algebra_learn.txt') as f:
         for line in f:
+            # Print the individuals lines from the file and wrap the text.
             print_wrap(line, 100)
+            # Pause to wait for user input.
             pause()
     # Set the level to 1, unlocks the first level.
-    with open('data/csv/user_data.csv', 'r+') as f:
-        text = f
-        text = ''.join(text.readlines()).split('\n')
-        for i in text:
-            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[0] == '0':
-                new = i.split(',')
-                new[shared.currentSubject] = '1:0'
-                new = ','.join(new)
-                text[text.index(i)] = new
-        text = '\n'.join(text)
-    # Write the File
-    with open('data/csv/user_data.csv', 'w') as f:
-        f.writelines(text)
+    unlock_first_level()
     return 0
 
 
+# Takes care of the levels pages, displays the 5 levels, and shows if they are locked or not. Loops the
+# algebra_levels_questions function and manages the score.
 def algebra_levels():
     # Print the total point returned from the get_score function for Algebra
     print(" >>> Total points for Algebra:", get_score())
@@ -101,6 +95,7 @@ def algebra_levels():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
         text = ''.join(text.readlines()).split('\n')
+        # Find the current user's data.
         for i in text:
             if i.split(',')[0] == shared.activeUser:
                 new = i.split(',')
@@ -115,7 +110,7 @@ def algebra_levels():
                 new = ','.join(new)
                 text[text.index(i)] = new
     text = '\n'.join(text)
-    # Write the File
+    # Write the new score into the File
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
@@ -125,9 +120,9 @@ def algebra_levels():
     # If user acquired full score, the next level is locked, and the level attempted is not 5, print congratulations and
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
-
+        # Displays Unlock the next level message.
         unlock_next_level()
-
+        # Unlocks the next level.
         add_level()
 
     pause()
@@ -135,7 +130,9 @@ def algebra_levels():
     return True
 
 
+# Takes care of the question generation and answer checking.
 def algebra_levels_questions(level, current_question):
+    # Open the file containing the questions and choose a random line from the file.
     with open('data/txt/algebra_levels_questions.txt') as f:
         line = f.readlines()
         while True:
@@ -144,24 +141,32 @@ def algebra_levels_questions(level, current_question):
             if int(selected_question[0]) <= level <= int(selected_question[1]):
                 break
 
+    # Set the question that will be displayed to the use to the third range of the line.
     question = selected_question[2]
+    # Generates the numbers which will get bigger when the level increases.
     exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
     at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
     has = str(random.randrange(1, 5 ** level))
+    # Replace the place holders in the question with the randomly generated numbers.
     question = question.replace('!', exc).replace('@', at).replace('#', has)
+    # Print out the question
     print(f"{current_question}) {question}")
+    # Evaluate the answer from the formula given on the fourth range of the selected question.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
+    # Remove the decimal place if the answer does not need it.
     answer = round(answer, 2) if answer != int(answer) else int(answer)
     print(answer)
 
+    # Establish the selection for random generated wrong answers.
     selection = []
     for i in range(1, 4):
-        # Generate random
+        # Generate random numbers
         exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
         at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
         has = str(random.randrange(1, 5 ** level))
-        # Replace random
+        # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
             exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
             at = str(random.randrange(2, 2 ** level)) if level != 1 else ''

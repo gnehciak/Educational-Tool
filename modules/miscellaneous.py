@@ -140,3 +140,21 @@ def gen_rand_geometry(level):
 
 def set_window_size(x, y):
     os.system(f"mode con cols={x} lines={y}")
+    return 0
+
+
+def unlock_first_level():
+    with open('data/csv/user_data.csv', 'r+') as f:
+        text = f
+        text = ''.join(text.readlines()).split('\n')
+        for i in text:
+            if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[0] == '0':
+                new = i.split(',')
+                new[shared.currentSubject] = '1:0'
+                new = ','.join(new)
+                text[text.index(i)] = new
+        text = '\n'.join(text)
+    # Write the File
+    with open('data/csv/user_data.csv', 'w') as f:
+        f.writelines(text)
+    return 0
