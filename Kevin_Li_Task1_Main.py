@@ -15,8 +15,9 @@ def main_menu():
     for i in range(1, 4):
         shared.currentSubject = i
         scores.append(int(get_score()))
-    print("Welcome!")
-    print("Choose a course below:")
+    print()
+    print(f" Welcome! {shared.activeUser}")
+    print(" Choose a course below:")
     print("""
 ┌───┐  ┌─┐┬  ┌─┐┌─┐┌┐ ┬─┐┌─┐
 │ 1 │  ├─┤│  │ ┬├┤ ├┴┐├┬┘├─┤
@@ -34,10 +35,11 @@ def main_menu():
     print(" Score:", scores[2])
     print(" Total Score:", scores[0] + scores[1] + scores[2])
     print()
-    print("Enter 0 to sign out.")
+    print(" Enter 0 to sign out.")
 
     # Keep asking for a valid value between 0-3 until a valid one is entered.
-    return parse_input_int([0, 3], "Select a Topic to Begin!\n---> ", "Please enter a valid selection.")
+    return parse_input_int([0, 3], " Select a Topic to Begin!\n---> ", " Please enter a valid selection.")
+
 
 
 # Keep asking for a valid login detail until the a existing one is entered.

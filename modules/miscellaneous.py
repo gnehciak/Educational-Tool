@@ -137,3 +137,6 @@ def add_level():
 
 def gen_rand_geometry(level):
     return str(random.randrange(1, 2 ** level) + random.choice([0, 0.5, 1, 1.5]) if level < 3 else str(random.randrange(1, 3 ** level) + random.choice([0, 0.25, 0.5, 0.75])))
+
+def set_window_size(x, y):
+    os.system(f"mode con cols={x} lines={y}")

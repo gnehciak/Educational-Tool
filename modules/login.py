@@ -3,13 +3,15 @@ import sys
 import stdiomask
 from modules.fireworks import *
 
-if not sys.stdin.isatty():
-    for i in range(1):
-        print("Please run in command line.")
-        time.sleep(0.2)
+
 
 def log_in():
-    os.system("mode con cols=80 lines=24")
+    if not sys.stdin.isatty():
+        print("Please run in command line.")
+        pause()
+        return False
+    set_window_size(80, 24)
+
     print("""
 \t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™
 \t██╔═══██╗██║   ██║██║╚══███╔╝██╔════╝██║     ██╔═══██╗╚══██╔══╝

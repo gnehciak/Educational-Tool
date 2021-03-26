@@ -1,10 +1,10 @@
 A fraction is called a rational number because it can be written as a/b, where a and b are integers (but b cannot be zero).
 Its proper name is common fraction because decimals and percentages are also types of fractions.
-• The top number (a) is the numerator
-• The bottom number (b) is the denominator
-An improper fraction is a ‘top-heavy’ fraction so its value is greater than 1, and it can be converted to a mixed numeral or whole number.
-To add or subtract fractions, convert them (if needed) so that they have the same denominator, then simply add or subtract just the numerators.
-To add or subtract mixed numerals, add or subtract the whole numbers and fractions separately.
-To multiply fractions, multiply the numerators and denominators separately, then simplify if possible (sometimes, it is easier to simplify the fractions first).
-To divide by a fraction, a/b, multiply by its reciprocal b/a.
-To multiply or divide mixed numerals, convert them to improper fractions first.
+ - The top number (a) is the numerator
+ - The bottom number (b) is the denominator
+An improper fraction is a 'top-heavy' fraction so its value is greater than 1, and it can be converted to a mixed numeral or whole number.
+ - To add or subtract fractions, convert them (if needed) so that they have the same denominator, then simply add or subtract just the numerators.
+ - To add or subtract mixed numerals, add or subtract the whole numbers and fractions separately.
+ - To multiply fractions, multiply the numerators and denominators separately, then simplify if possible (sometimes, it is easier to simplify the fractions first).
+ - To divide by a fraction, a/b, multiply by its reciprocal b/a.
+ - To multiply or divide mixed numerals, convert them to improper fractions first.

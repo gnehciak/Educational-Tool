@@ -28,7 +28,7 @@ def frac_n_dec():
 
 def frac_n_dec_learn():
     # Display the fraction learn text
-    with open('data/txt/fraction_learn.txt') as f:
+    with open('data/txt/fraction_learn.txt', 'r') as f:
         for line in f:
             print_wrap(line, 100)
             pause()
