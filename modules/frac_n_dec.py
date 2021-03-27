@@ -1,5 +1,3 @@
-import random
-import fractions
 from modules.miscellaneous import *
 
 
@@ -113,9 +111,9 @@ def frac_n_dec_levels():
     # If user acquired full score, the next level is locked, and the level attempted is not 5, print congratulations and
     # write the new data to the files.
     elif score == shared.question_amt and check_level(shared.currentSubject, level + 1) == '█' and level < 5:
-
+        # Displays Unlock the next level message.
         unlock_next_level()
-
+        # Unlocks the next level.
         add_level()
 
     pause()
@@ -123,7 +121,9 @@ def frac_n_dec_levels():
     return True
 
 
+# Takes care of the question generation and answer checking.
 def frac_n_dec_levels_questions(level, current_question):
+    # Open the file containing the questions and choose a random line from the file.
     with open('data/txt/fraction_levels_questions.txt') as f:
         line = f.readlines()
         while True:
@@ -132,24 +132,31 @@ def frac_n_dec_levels_questions(level, current_question):
             if int(selected_question[0]) <= level <= int(selected_question[1]):
                 break
 
+    # Set the question that will be displayed to the use to the third range of the line.
     question = selected_question[2]
+    # Generates the numbers which will get bigger when the level increases.
     exc = str(random.randrange(0, 5 ** level))
     at = str(random.randrange(1, 5 ** level))
     has = str(round(random.uniform(1, 3 ** level), round(level * 0.65)))
+    # Replace the place holders in the question with the randomly generated numbers.
     question = eval(question.replace('!', exc).replace('@', at).replace('#', has))
+    # Print out the question
     print(f"{current_question}) {question}")
-
+    # Remove the decimal place if the answer does not need it.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    print(answer)
+    # print(answer)
 
+    # Establish the selection for random generated wrong answers.
     selection = []
+    # Generate 3 random answers.
     for i in range(1, 4):
         # Generate random
         exc = str(random.randrange(0, 5 ** level))
         at = str(random.randrange(1, 5 ** level))
         has = str(round(random.uniform(1, 3 ** level), round(level/2)))
-        # Replace random
+        # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
             exc = str(random.randrange(0, 5 ** level))
             at = str(random.randrange(1, 5 ** level))
@@ -157,29 +164,5 @@ def frac_n_dec_levels_questions(level, current_question):
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         selection.append(eval(ran_answer))
 
-    selection.append(answer)
-    # Shuffle the answers.
-    random.shuffle(selection)
-    alpha = ['a', 'b', 'c', 'd']
-    for i in range(1, 5):
-        print('\t', alpha[i - 1] + ')', selection[i - 1])
-
-    answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-
-    while True:
-        try:
-            user_answer = input("---> ").lower()
-            if user_answer in answers:
-                if answers[user_answer] in range(1, 5):
-                    break
-            else:
-                print("Please enter a value from A to D")
-        except ValueError:
-            print("Please enter a value from A to D")
-
-    if selection[answers[user_answer] - 1] == answer:
-        print("Correct!")
-        return 1
-
-    print("Incorrect.")
-    return 0
+    # Print the selection list
+    return print_selection_list(selection, answer)

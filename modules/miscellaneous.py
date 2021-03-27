@@ -9,18 +9,22 @@ from modules import shared
 # Import colorama
 from colorama import init
 
+# Initialise colorama
 init()
 
 
+# Move the cursor to y, x
 def move(y, x):
     print(f"\033[%d;%dH" % (y, x))
 
 
+# Print a message at y, x
 def printp(y, x, txt):
     move(y, x)
     print(txt, end='')
 
 
+# Get input from y, x
 def inputp(y, x, txt):
     move(y, x)
     return input(txt)
@@ -78,6 +82,7 @@ def parse_input_int(restriction, message, error_message) -> int:
             print(error_message)
 
 
+# Returns the total score for a particular subject
 def get_score():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
@@ -88,6 +93,7 @@ def get_score():
                 return new[shared.currentSubject].split(':')[1]
 
 
+# Print the menu
 def get_subject_menu():
     return """
 \t┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
@@ -104,6 +110,7 @@ def get_subject_menu():
 """
 
 
+# Prints the message "Congratulations!..."
 def unlock_next_level():
     with open('data/csv/user_data.csv') as f:
         reader = csv.reader(f)
@@ -115,6 +122,7 @@ def unlock_next_level():
                     break
 
 
+# Unlocks the next level
 def add_level():
     with open('data/csv/user_data.csv', 'r+') as f:
 
@@ -128,21 +136,25 @@ def add_level():
                      new[shared.currentSubject].split(':')[1]])
                 new = ','.join(new)
                 text[text.index(i)] = new
-                # print(int(i.split(',')[currentSubject]) + 1)
         text = '\n'.join(text)
 
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
 
+# Generate random number for geometry.
 def gen_rand_geometry(level):
-    return str(random.randrange(1, 2 ** level) + random.choice([0, 0.5, 1, 1.5]) if level < 3 else str(random.randrange(1, 3 ** level) + random.choice([0, 0.25, 0.5, 0.75])))
+    return str(random.randrange(1, 2 ** level) + random.choice([0, 0.5, 1, 1.5]) if level < 3 else str(
+        random.randrange(1, 3 ** level) + random.choice([0, 0.25, 0.5, 0.75])))
 
+
+# Set the window size.
 def set_window_size(x, y):
     os.system(f"mode con cols={x} lines={y}")
     return 0
 
 
+# Unlocks the first level.
 def unlock_first_level():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
@@ -157,4 +169,34 @@ def unlock_first_level():
     # Write the File
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
+    return 0
+
+
+# Print the answer selection list in questions and check if selection is correct.
+def print_selection_list(selection, answer):
+    selection.append(round(answer, 2))
+    random.shuffle(selection)
+    alpha = ['a', 'b', 'c', 'd']
+    # Print the answews
+    for i in range(1, 5):
+        print('\t', alpha[i - 1] + ')', selection[i - 1])
+
+    answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+    while True:
+        try:
+            user_answer = input("---> ").lower()
+            if user_answer in answers:
+                if answers[user_answer] in range(1, 5):
+                    break
+            else:
+                print("Please enter a value from A to D")
+        except ValueError:
+            print("Please enter a value from A to D")
+
+    if selection[answers[user_answer] - 1] == answer:
+        print("Correct!")
+        return 1
+
+    print("Incorrect.")
     return 0

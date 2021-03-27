@@ -89,6 +89,7 @@ def geometry_levels():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
         text = ''.join(text.readlines()).split('\n')
+        # Find the current user's data.
         for i in text:
             if i.split(',')[0] == shared.activeUser:
                 new = i.split(',')
@@ -104,7 +105,7 @@ def geometry_levels():
                 new = ','.join(new)
                 text[text.index(i)] = new
     text = '\n'.join(text)
-    # Write the File
+    # Write the new score into the File
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
@@ -123,8 +124,9 @@ def geometry_levels():
     clear()
     return True
 
-
+# Takes care of the question generation and answer checking.
 def geometry_levels_questions(level, current_question):
+    # Open the file containing the questions and choose a random line from the file.
     with open('data/txt/geometry_levels_questions.txt') as f:
         line = f.readlines()
         while True:
@@ -133,55 +135,43 @@ def geometry_levels_questions(level, current_question):
             if int(selected_question[0]) <= level <= int(selected_question[1]):
                 break
 
+    # Set the question that will be displayed to the use to the third range of the line.
     question = selected_question[2]
+    # Generates the numbers which will get bigger when the level increases.
     exc = gen_rand_geometry(level)
     at = gen_rand_geometry(level)
     has = gen_rand_geometry(level)
+    # Replace the place holders in the question with the randomly generated numbers.
     question = question.replace('!', exc).replace('@', at).replace('#', has)
+    # Print out the question
     print_wrap(f"{current_question}) {question}", 60)
 
+    # Evaluate the answer from the formula given on the fourth range of the selected question.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
+    # Remove the decimal place if the answer does not need it.
     answer = round(answer, 3) if answer != int(answer) else int(answer)
-    print(answer)
+    # print(answer)
 
+    # Establish the selection for random generated wrong answers.
     selection = []
+    # Generate 3 random answers.
     for i in range(1, 4):
+        # Generate random numbers
         exc = gen_rand_geometry(level)
         at = gen_rand_geometry(level)
         has = gen_rand_geometry(level)
+        # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or str(eval(ran_answer)) == str(answer):
             exc = gen_rand_geometry(level)
             at = gen_rand_geometry(level)
             has = gen_rand_geometry(level)
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        # Evaluate the random answer
         ran_answer = round(eval(ran_answer), 3)
         ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
         selection.append(ran_answer)
 
-    selection.append(round(answer, 3))
-    # Shuffle the answers.
-    random.shuffle(selection)
-    alpha = ['a', 'b', 'c', 'd']
-    for i in range(1, 5):
-        print('\t', alpha[i - 1] + ')', selection[i - 1])
-
-    answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-
-    while True:
-        try:
-            user_answer = input("---> ").lower()
-            if user_answer in answers:
-                if answers[user_answer] in range(1, 5):
-                    break
-            else:
-                print("Please enter a value from A to D")
-        except ValueError:
-            print("Please enter a value from A to D")
-
-    if selection[answers[user_answer] - 1] == answer:
-        print("Correct!")
-        return 1
-
-    print("Incorrect.")
-    return 0
+    # Print the selection list
+    return print_selection_list(selection, answer)

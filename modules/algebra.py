@@ -155,10 +155,11 @@ def algebra_levels_questions(level, current_question):
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
     # Remove the decimal place if the answer does not need it.
     answer = round(answer, 2) if answer != int(answer) else int(answer)
-    print(answer)
+    # print(answer)
 
     # Establish the selection for random generated wrong answers.
     selection = []
+    # Generate 3 random answers.
     for i in range(1, 4):
         # Generate random numbers
         exc = str(random.randrange(0, 5 ** level)) if level < 4 else str(random.randrange(-2 ** level, 5 ** level))
@@ -172,33 +173,10 @@ def algebra_levels_questions(level, current_question):
             at = str(random.randrange(2, 2 ** level)) if level != 1 else ''
             has = str(random.randrange(1, 5 ** level))
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        # Evaluate the random answer
         ran_answer = round(eval(ran_answer), 2)
         ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
         selection.append(ran_answer)
 
-    selection.append(round(answer, 2))
-    # Shuffle the answers.
-    random.shuffle(selection)
-    alpha = ['a', 'b', 'c', 'd']
-    for i in range(1, 5):
-        print('\t', alpha[i - 1] + ')', selection[i - 1])
-
-    answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-
-    while True:
-        try:
-            user_answer = input("---> ").lower()
-            if user_answer in answers:
-                if answers[user_answer] in range(1, 5):
-                    break
-            else:
-                print("Please enter a value from A to D")
-        except ValueError:
-            print("Please enter a value from A to D")
-
-    if selection[answers[user_answer] - 1] == answer:
-        print("Correct!")
-        return 1
-
-    print("Incorrect.")
-    return 0
+    # Print the selection list
+    return print_selection_list(selection, answer)
