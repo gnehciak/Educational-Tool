@@ -7,7 +7,7 @@ import random
 # Import variable from shared. (activeUser)
 from modules import shared
 # Import colorama
-from colorama import init
+from modules.colorama import init
 
 # Initialise colorama
 init()
@@ -32,7 +32,7 @@ def inputp(y, x, txt):
 
 # Clears the screen, only works when launched in Command Line.
 def clear():
-    os.system('CLS')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # Displays 'Press Enter to Continue...', postponing the program until user confirmation (presses Enter).

@@ -1,5 +1,5 @@
 from modules.miscellaneous import *
-
+from modules import fraction
 
 def frac_n_dec():
     # os.system("mode con cols=80 lines=40")

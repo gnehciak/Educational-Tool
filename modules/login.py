@@ -1,7 +1,9 @@
 from modules.miscellaneous import *
 import sys
-import stdiomask
+#import stdiomask
 from modules.fireworks import *
+
+from modules import stdiomask
 
 
 def log_in():
