@@ -4,7 +4,6 @@ import stdiomask
 from modules.fireworks import *
 
 
-
 def log_in():
     if not sys.stdin.isatty():
         print("Please run in command line.")
@@ -26,7 +25,7 @@ def log_in():
     box_border1 = flt_border + ver_border * 2 + hor_border
     box_border2 = hor_border + ver_border * 2 + hor_border
 
-    print(box_border1, 4*ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
+    print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
     printp(10, 1, "|\t\t\t      Welcome to Quizelot")
     printp(13, 1, "| Please log in with your details to continue. Enter 'exit' to close.")
     printp(18, 1, "| Username: ")
@@ -125,33 +124,47 @@ def log_in():
                     printp(21, 1, "| Password: ")
 
 
-
 def register():
     # Ask for new username and password.
     print("Register your account (case sensitive)")
 
+    # Read the login file into a list
     with open('data/csv/login.csv') as f:
         existing_users = f.readlines()
         for i in existing_users:
             existing_users[existing_users.index(i)] = i.split(',')[0]
 
+    # Keep asking for a valid registration
     while True:
-        ipt_username = input("Username: ")
+        # Get the username
+        ipt_username = input("Username (cannot contain comma): ")
+        # If 'exit' is typed, exit to login.
         if ipt_username == 'exit':
             clear()
             return 0
-        if ipt_username not in existing_users:
+        # If username contains a comma, ask for another valid username
+        elif ',' in ipt_username:
+            print("Username cannot contain comma(,)")
+            if parse_input_int([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
+                clear()
+                return 0
+            clear()
+        # If username is not already registered, proceed to registration.
+        elif ipt_username not in existing_users:
             break
+        # If username is found in the file, ask to login or retry.
         else:
             print("User already exists.")
             if parse_input_int([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
                 clear()
                 return 0
 
+    # Get password
     ipt_password = input("Password: ")
     # Register the input into the login.csv file.
     with open('data/csv/login.csv', 'a') as f:
         f.writelines('\n' + ipt_username + ',' + ipt_password)
+    # Register the user into the data file.
     with open('data/csv/user_data.csv', 'a') as f:
         f.writelines('\n' + ipt_username + ',' + '0:0' + ',' + '0:0' + ',' + '0:0')
     print("Registration Successful, press Enter to Login...")
