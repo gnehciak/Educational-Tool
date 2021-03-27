@@ -138,14 +138,17 @@ def frac_n_dec_levels_questions(level, current_question):
     # Generates the numbers which will get bigger when the level increases.
     exc = str(random.randrange(0, 5 ** level))
     at = str(random.randrange(1, 5 ** level))
-    has = str(round(random.uniform(1, 3 ** level), round(level * 0.65)))
+    has = str(round(random.uniform(1, 4 ** level), round(level * 0.65)))
     # Replace the place holders in the question with the randomly generated numbers.
     question = eval(question.replace('!', exc).replace('@', at).replace('#', has))
     # Print out the question
     print(f"{current_question}) {question}")
     # Remove the decimal place if the answer does not need it.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    # print(answer)
+    answer = eval(answer)
+    # Remove the decimal place if the answer does not need it.
+    answer = round(answer, 2) if answer != int(answer) else int(answer)
+    print(answer)
 
     # Establish the selection for random generated wrong answers.
     selection = []
@@ -154,16 +157,21 @@ def frac_n_dec_levels_questions(level, current_question):
         # Generate random
         exc = str(random.randrange(0, 5 ** level))
         at = str(random.randrange(1, 5 ** level))
-        has = str(round(random.uniform(1, 3 ** level), round(level / 2)))
+        has = str(round(random.uniform(1, 4 ** level), round(level / 2)))
         # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
+        answer = eval(answer)
         # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
             exc = str(random.randrange(0, 5 ** level))
             at = str(random.randrange(1, 5 ** level))
-            has = str(round(random.uniform(1, 3 ** level), round(level / 2)))
+            has = str(round(random.uniform(1, 4 ** level), round(level / 2)))
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-        selection.append(eval(ran_answer))
+            answer = eval(answer)
+        ran_answer = round(eval(ran_answer), 2)
+        ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
+        selection.append(ran_answer)
+
 
     # Print the selection list
     return print_selection_list(selection, answer)
