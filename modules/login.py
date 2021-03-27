@@ -121,7 +121,7 @@ def log_in():
 
                     print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
                     printp(10, 1, "|\t\t\t      Welcome to Quizelot")
-                    printp(13, 1, "| Please log in with your details to continue.")
+                    printp(13, 1, "| Please log in with your details to continue. Enter 'exit' to close.")
                     printp(18, 1, "| Username: ")
                     printp(21, 1, "| Password: ")
 
@@ -139,14 +139,20 @@ def register():
     # Keep asking for a valid registration
     while True:
         # Get the username
-        ipt_username = input("Username (cannot contain comma): ")
+        ipt_username = input("Username (Allows letters, numbers, period, underscore): ")
+        # Replace period and underscore with spaces.
+        ipt_username_alpha = ipt_username.replace('_', '').replace('.', '')
+        # Remove numbers
+        ipt_username_alpha = ''.join([i for i in ipt_username_alpha if not i.isdigit()])
+
         # If 'exit' is typed, exit to login.
         if ipt_username == 'exit':
             clear()
             return 0
+
         # If username contains a comma, ask for another valid username
-        elif ',' in ipt_username:
-            print("Username cannot contain comma(,)")
+        elif not ipt_username_alpha.isalpha():
+            print("Illegal character(s) in username.")
             if parse_input_int([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
                 clear()
                 return 0
