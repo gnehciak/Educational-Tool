@@ -1,4 +1,4 @@
-import random
-dic = {"question1":"answer", "question2":"answer", "question3":"answer"}
+from modules.fraction import Fraction
 
-print(list(dic.keys())[random.randrange(0, len(list(dic.keys())))])
+a = Fraction(2, 4)
+print(a)

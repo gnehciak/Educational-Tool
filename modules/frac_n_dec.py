@@ -1,5 +1,6 @@
 from modules.miscellaneous import *
-from modules import fraction
+import fractions
+
 
 def frac_n_dec():
     # os.system("mode con cols=80 lines=40")
@@ -153,14 +154,14 @@ def frac_n_dec_levels_questions(level, current_question):
         # Generate random
         exc = str(random.randrange(0, 5 ** level))
         at = str(random.randrange(1, 5 ** level))
-        has = str(round(random.uniform(1, 3 ** level), round(level/2)))
+        has = str(round(random.uniform(1, 3 ** level), round(level / 2)))
         # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
             exc = str(random.randrange(0, 5 ** level))
             at = str(random.randrange(1, 5 ** level))
-            has = str(round(random.uniform(1, 3 ** level), round(level/2)))
+            has = str(round(random.uniform(1, 3 ** level), round(level / 2)))
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
         selection.append(eval(ran_answer))
 
