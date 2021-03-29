@@ -1,0 +1,6 @@
+<<<Welcome to Quizelot!>>>
+This is an educational tool for Mathematics. Topics covered includes: Algebra, Geometry, and Fractions.
+Use numbers to navigate around the program, each menu shows the actions that corresponds to each number.
+Each subject contains 5 levels. 1 being the easiest and 5 being the hardest. You'll need to score full score on the highest level you've unlocked to unlock the next level. The highest level is 5, so upon completing level 5 with a full score will not unlock any additional levels.
+-- To get started:
+If you haven't already registered, enter your username and select "register" by pressing the 2 key. After registration, you should be able to log into the program and all your progress will be saved.

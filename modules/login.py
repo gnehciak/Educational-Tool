@@ -2,6 +2,7 @@ from modules.miscellaneous import *
 import sys
 #import stdiomask
 from modules.fireworks import *
+from modules.help import *
 
 from modules import stdiomask
 
@@ -13,37 +14,33 @@ def log_in():
         return False
     set_window_size(80, 24)
 
-    print("""
-\t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™
-\t██╔═══██╗██║   ██║██║╚══███╔╝██╔════╝██║     ██╔═══██╗╚══██╔══╝
-\t██║   ██║██║   ██║██║  ███╔╝ █████╗  ██║     ██║   ██║   ██║   
-\t██║█╗ ██║██║   ██║██║ ███╔╝  ██╔══╝  ██║     ██║   ██║   ██║   
-\t╚██████╔╝╚██████╔╝██║███████╗███████╗███████╗╚██████╔╝   ██║   
-\t ╚══█╗═╝  ╚═════╝ ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝    ╚═╝   
-\t\t\t\t\t\t     Copyleft © 2021 by Kevin""")
     hor_border = "|______________________________________________________________________________|\n"
     ver_border = "|                                                                              |\n"
     flt_border = " ______________________________________________________________________________\n"
     box_border1 = flt_border + ver_border * 2 + hor_border
     box_border2 = hor_border + ver_border * 2 + hor_border
 
-    print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
-    printp(10, 1, "|\t\t\t      Welcome to Quizelot")
-    printp(13, 1, "| Please log in with your details to continue. Enter 'exit' to close.")
-    printp(18, 1, "| Username: ")
-    printp(21, 1, "| Password: ")
+    print_login()
 
     # Keep asking for correct login credential until the correct one is entered.
     while True:
         # Ask for username
         ipt_username = inputp(18, 1, "| Username: ")
-        if ipt_username == 'exit':
+        # Is the username entered is exit, then quit the program.
+        if ipt_username.lower() == 'exit':
             os.system("mode con cols=110 lines=35")
             os.system('CLS')
             printp(11, 1, '\t\t\tBye~')
             print_firework()
             time.sleep(1)
             return False
+        if ipt_username.lower() == "help":
+            clear()
+            help()
+            clear()
+            print_login()
+            continue
+
         # Open the login.csv file to check if username instance exists
         with open('data/csv/login.csv', 'r') as f:
             reader = csv.reader(f, delimiter=',')
@@ -65,6 +62,8 @@ def log_in():
                 if ipt_password == row[1]:
                     shared.activeUser = ipt_username
                     printp(13, 1, ver_border)
+                    printp(14, 1, ver_border)
+                    printp(15, 1, ver_border)
                     printp(13, 1, "| Login Successful!")
                     inputp(15, 1, "| Press Enter to continue...")
                     return True
@@ -105,25 +104,7 @@ def log_in():
                 if number == 2:
                     clear()
                     register()
-                    print("""
-\t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™
-\t██╔═══██╗██║   ██║██║╚══███╔╝██╔════╝██║     ██╔═══██╗╚══██╔══╝
-\t██║   ██║██║   ██║██║  ███╔╝ █████╗  ██║     ██║   ██║   ██║   
-\t██║█╗ ██║██║   ██║██║ ███╔╝  ██╔══╝  ██║     ██║   ██║   ██║   
-\t╚██████╔╝╚██████╔╝██║███████╗███████╗███████╗╚██████╔╝   ██║   
-\t ╚══█╗═╝  ╚═════╝ ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝    ╚═╝   
-\t\t\t\t\t\t     Copyleft © 2021 by Kevin""")
-                    hor_border = "|______________________________________________________________________________|\n"
-                    ver_border = "|                                                                              |\n"
-                    flt_border = " ______________________________________________________________________________\n"
-                    box_border1 = flt_border + ver_border * 2 + hor_border
-                    box_border2 = hor_border + ver_border * 2 + hor_border
-
-                    print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
-                    printp(10, 1, "|\t\t\t      Welcome to Quizelot")
-                    printp(13, 1, "| Please log in with your details to continue. Enter 'exit' to close.")
-                    printp(18, 1, "| Username: ")
-                    printp(21, 1, "| Password: ")
+                    print_login()
 
 
 def register():

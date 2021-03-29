@@ -145,7 +145,7 @@ def frac_n_dec_levels_questions(level, current_question):
     print(f"{current_question}) {question}")
     # Remove the decimal place if the answer does not need it.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
-    answer = eval(answer)
+    answer = eval(str(answer))
     # Remove the decimal place if the answer does not need it.
     answer = round(answer, 2) if answer != int(answer) else int(answer)
     print(answer)
@@ -160,14 +160,14 @@ def frac_n_dec_levels_questions(level, current_question):
         has = str(round(random.uniform(1, 4 ** level), round(level / 2)))
         # Replace the place holder in the question.
         ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-        answer = eval(answer)
+        answer = eval(str(answer))
         # While the question is found in already generated answers, repeat the process to generate a new answer.
         while eval(ran_answer) in selection or eval(ran_answer) == answer:
             exc = str(random.randrange(0, 5 ** level))
             at = str(random.randrange(1, 5 ** level))
             has = str(round(random.uniform(1, 4 ** level), round(level / 2)))
             ran_answer = selected_question[3].replace('!', exc).replace('@', at).replace('#', has)
-            answer = eval(answer)
+            answer = eval(str(answer))
         ran_answer = round(eval(ran_answer), 2)
         ran_answer = ran_answer if ran_answer != int(ran_answer) else int(ran_answer)
         selection.append(ran_answer)

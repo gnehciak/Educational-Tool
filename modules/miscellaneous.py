@@ -200,3 +200,28 @@ def print_selection_list(selection, answer):
 
     print("Incorrect.")
     return 0
+
+
+def print_login():
+    print("""
+\t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™
+\t██╔═══██╗██║   ██║██║╚══███╔╝██╔════╝██║     ██╔═══██╗╚══██╔══╝
+\t██║   ██║██║   ██║██║  ███╔╝ █████╗  ██║     ██║   ██║   ██║   
+\t██║█╗ ██║██║   ██║██║ ███╔╝  ██╔══╝  ██║     ██║   ██║   ██║   
+\t╚██████╔╝╚██████╔╝██║███████╗███████╗███████╗╚██████╔╝   ██║   
+\t ╚══█╗═╝  ╚═════╝ ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝    ╚═╝   
+\t\t\t\t\t\t     Copyleft © 2021 by Kevin""")
+    hor_border = "|______________________________________________________________________________|\n"
+    ver_border = "|                                                                              |\n"
+    flt_border = " ______________________________________________________________________________\n"
+    box_border1 = flt_border + ver_border * 2 + hor_border
+    box_border2 = hor_border + ver_border * 2 + hor_border
+
+    print(box_border1, 4 * ver_border, box_border2, ver_border * 2, hor_border.strip(), sep='', end='')
+    printp(10, 1, "|\t\t\t      Welcome to Quizelot")
+    printp(13, 1, "| Please log in with your details to continue.")
+    printp(14, 1, "| \t- Enter 'help' for information about the program.")
+    printp(15, 1, "| \t- Enter 'exit' to close.")
+    printp(18, 1, "| Username: ")
+    printp(21, 1, "| Password: ")
+
