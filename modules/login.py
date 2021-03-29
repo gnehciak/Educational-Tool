@@ -26,6 +26,10 @@ def log_in():
     while True:
         # Ask for username
         ipt_username = inputp(18, 1, "| Username: ")
+        if not ipt_username:
+            clear()
+            print_login()
+            continue
         # Is the username entered is exit, then quit the program.
         if ipt_username.lower() == 'exit':
             os.system("mode con cols=110 lines=35")
