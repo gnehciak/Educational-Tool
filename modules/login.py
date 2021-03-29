@@ -47,12 +47,13 @@ def log_in():
 
         # Open the login.csv file to check if username instance exists
         with open('data/csv/login.csv', 'r') as f:
-            reader = csv.reader(f, delimiter=',')
+            users = f.readlines()
             # Attempt to find username line by line
-            for row in reader:
+            for user in users:
+                user = user.split(',', 1)
                 # Make sure that the row has a value
-                if row:
-                    if ipt_username == row[0]:
+                if user:
+                    if ipt_username == user[0]:
                         user_found = True
                         break
                     else:
@@ -63,7 +64,7 @@ def log_in():
                 move(21, 1)
                 ipt_password = stdiomask.getpass("| Password: ")
                 # If password is correct, return True.
-                if ipt_password == row[1]:
+                if ipt_password == user[1]:
                     shared.activeUser = ipt_username
                     printp(13, 1, ver_border)
                     printp(14, 1, ver_border)
@@ -94,6 +95,8 @@ def log_in():
                             printp(14, 1, ver_border)
                             printp(15, 1, ver_border)
                             printp(13, 1, "| Please log in with your details to continue.")
+                            printp(14, 1, "| \t- Enter 'help' for information about the program.")
+                            printp(15, 1, "| \t- Enter 'exit' to close.")
                             printp(21, 1, ver_border)
                             printp(21, 1, "| Password: ")
                             break
@@ -112,19 +115,24 @@ def log_in():
 
 
 def register():
-    # Ask for new username and password.
-    print("Register your account (case sensitive)")
-
     # Read the login file into a list
     with open('data/csv/login.csv') as f:
         existing_users = f.readlines()
         for i in existing_users:
-            existing_users[existing_users.index(i)] = i.split(',')[0]
+            existing_users[existing_users.index(i)] = i.split(',', 1)[0]
 
     # Keep asking for a valid registration
     while True:
+        print(" <<<Register your account>>>")
+        print(" Enter 'exit' to go back.")
+        print("\n Requirements:")
+        print("\tUsername is case sensitive.")
+        print("\t* Cannot contain any spaces.")
+        print("\t* Must contain at least one letter.")
+        print("\t* Only letters, numbers, commas, and underscores can be used.\n")
+
         # Get the username
-        ipt_username = input("Username (Allows letters, numbers, period, underscore): ")
+        ipt_username = input("Username: ")
         # Replace period and underscore with spaces.
         ipt_username_alpha = ipt_username.replace('_', '').replace('.', '')
         # Remove numbers
@@ -137,10 +145,8 @@ def register():
 
         # If username contains a comma, ask for another valid username
         elif not ipt_username_alpha.isalpha():
-            print("Illegal character(s) in username.")
-            if parse_input_int([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
-                clear()
-                return 0
+            print("Invalid username format.")
+            pause("Press Enter to try again...")
             clear()
         # If username is not already registered, proceed to registration.
         elif ipt_username not in existing_users:
@@ -148,9 +154,10 @@ def register():
         # If username is found in the file, ask to login or retry.
         else:
             print("User already exists.")
-            if parse_input_int([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
+            if parse_input([1, 2], "[1] Retry\n[2] Login\n", "Please Enter a valid value.") == 2:
                 clear()
                 return 0
+            clear()
 
     # Get password
     ipt_password = input("Password: ")

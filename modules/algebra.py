@@ -21,7 +21,7 @@ def algebra():
     print(get_subject_menu())
 
     # Ask for valid value from 1 to 3
-    selection = parse_input_int([1, 3], " >>> ", "Please enter a value between 1-3.")
+    selection = parse_input([1, 3], " >>> ", "Please enter a value between 1-3.")
     # Return the selection
     return selection
 
@@ -44,33 +44,38 @@ def algebra_learn():
 # Takes care of the levels pages, displays the 5 levels, and shows if they are locked or not. Loops the
 # algebra_levels_questions function and manages the score.
 def algebra_levels():
-    # Print the total point returned from the get_score function for Algebra
-    print(" >>> Total points for Algebra:", get_score())
-    print("Choose a level to begin: ")
-
-    # Print out level boxes with the unlocked levels from check_level function.
-    print(f"""
-\t┌───┐   ┌───┐   ┌───┐   ┌───┐   ┌───┐
-\t│ {check_level(shared.currentSubject, 1)} │   │ {check_level(shared.currentSubject, 2)} │   │ {check_level(shared.currentSubject, 3)} │   │ {check_level(shared.currentSubject, 4)} │   │ {check_level(shared.currentSubject, 5)} │ 
-\t└───┘   └───┘   └───┘   └───┘   └───┘
-""")
-
-    # Print helpful stuff
-    print("( █ indicates that the level is still locked.)")
-    print("Enter 0 to go back.")
-    print("Finish the learn section to unlock the first level.") if check_level(shared.currentSubject, 1) == '█' else ''
 
     # Get the level selection from user
     while True:
-        level = parse_input_int([0, 5], ' >>> ', "Please enter a value between 1-5.")
+        # Print the total point returned from the get_score function for Algebra
+        print(" >>> Total points for Algebra:", get_score())
+        print("Choose a level to begin: ")
+
+        # Print out level boxes with the unlocked levels from check_level function.
+        print(f"""
+        \t┌───┐   ┌───┐   ┌───┐   ┌───┐   ┌───┐
+        \t│ {check_level(shared.currentSubject, 1)} │   │ {check_level(shared.currentSubject, 2)} │   │ {check_level(shared.currentSubject, 3)} │   │ {check_level(shared.currentSubject, 4)} │   │ {check_level(shared.currentSubject, 5)} │ 
+        \t└───┘   └───┘   └───┘   └───┘   └───┘
+        """)
+
+        # Print helpful stuff
+        print("( █ indicates that the level is still locked.)")
+        print("Enter 0 to go back.")
+        print("Finish the learn section to unlock the first level.") if check_level(shared.currentSubject,
+                                                                                    1) == '█' else ''
+        level = parse_input([0, 5], ' >>> ', "Please enter a value between 1-5.")
+        if level == None:
+            continue
         # If input is 0 then return and go back to previous menu
-        if level == 0:
+        if int(level) == 0:
             return False
         # If level is unlocked then break the loop
-        if check_level(shared.currentSubject, level) == level:
+        if check_level(shared.currentSubject, level) == (level):
             break
         # Else print the level is locked
         print("Level locked!")
+        pause()
+        clear()
 
     clear()
 
@@ -78,12 +83,8 @@ def algebra_levels():
     score = 0
     # Ask the set question_amt var amount of questions and add 1 to score if the algebra_levels_questions returns 1
     for i in range(1, shared.question_amt + 1):
-        # Print the current questions number
-        print(f"Question: {i}/{shared.question_amt}")
-        # Print the current score
-        print(f"Score: {score}")
         # Call the algebra_levels_questions function and add the returned value to the score
-        score += algebra_levels_questions(level, i)
+        score += algebra_levels_questions(level, i, score)
         # Pause
         pause()
         clear()
@@ -131,7 +132,7 @@ def algebra_levels():
 
 
 # Takes care of the question generation and answer checking.
-def algebra_levels_questions(level, current_question):
+def algebra_levels_questions(level, current_question, score):
     # Open the file containing the questions and choose a random line from the file.
     with open('data/txt/algebra_levels_questions.txt') as f:
         line = f.readlines()
@@ -149,13 +150,10 @@ def algebra_levels_questions(level, current_question):
     has = str(random.randrange(1, 5 ** level))
     # Replace the place holders in the question with the randomly generated numbers.
     question = question.replace('!', exc).replace('@', at).replace('#', has)
-    # Print out the question
-    print(f"{current_question}) {question}")
     # Evaluate the answer from the formula given on the fourth range of the selected question.
     answer = eval(selected_question[3].replace('!', exc).replace('@', at).replace('#', has))
     # Remove the decimal place if the answer does not need it.
     answer = round(answer, 2) if answer != int(answer) else int(answer)
-    # print(answer)
 
     # Establish the selection for random generated wrong answers.
     selection = []
@@ -179,4 +177,4 @@ def algebra_levels_questions(level, current_question):
         selection.append(ran_answer)
 
     # Print the selection list
-    return print_selection_list(selection, answer)
+    return print_selection_list(selection, current_question, question, answer, score)

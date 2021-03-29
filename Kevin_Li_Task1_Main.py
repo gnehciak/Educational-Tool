@@ -16,29 +16,26 @@ def main_menu():
         shared.currentSubject = i
         scores.append(int(get_score()))
     print()
-    print(f" Welcome! {shared.activeUser}")
-    print(" Choose a course below:")
-    print("""
+    print(f" Welcome! {shared.activeUser}\n")
+    print(" <<<Choose a course below>>>")
+    print(f"""
 ┌───┐  ┌─┐┬  ┌─┐┌─┐┌┐ ┬─┐┌─┐
-│ 1 │  ├─┤│  │ ┬├┤ ├┴┐├┬┘├─┤
+│ 1 │  ├─┤│  │ ┬├┤ ├┴┐├┬┘├─┤      Score: {scores[0]}
 └───┘  ┴ ┴┴─┘└─┘└─┘└─┘┴└─┴ ┴""")
-    print(" Score:", scores[0])
-    print("""
+    print(f"""
 ┌───┐  ┌─┐┌─┐┌─┐┌┬┐┌─┐┌┬┐┬─┐┬ ┬
-│ 2 │  │ ┬├┤ │ ││││├┤  │ ├┬┘└┬┘
+│ 2 │  │ ┬├┤ │ ││││├┤  │ ├┬┘└┬┘   Score: {scores[1]}
 └───┘  └─┘└─┘└─┘┴ ┴└─┘ ┴ ┴└─ ┴""")
-    print(" Score:", scores[1])
-    print("""
+    print(f"""
 ┌───┐  ┌─┐┬─┐┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
-│ 3 │  ├┤ ├┬┘├─┤│   │ ││ ││││└─┐
+│ 3 │  ├┤ ├┬┘├─┤│   │ ││ ││││└─┐  Score: {scores[2]}
 └───┘  └  ┴└─┴ ┴└─┘ ┴ ┴└─┘┘└┘└─┘""")
-    print(" Score:", scores[2])
-    print(" >>> Total Score:", scores[0] + scores[1] + scores[2])
+    print(f"\n (Total Score: {scores[0] + scores[1] + scores[2]})")
     print()
     print(" Enter 0 to sign out.")
 
     # Keep asking for a valid value between 0-3 until a valid one is entered.
-    return parse_input_int([0, 3], " Select a Topic to Begin!\n >>> ", " Please enter a valid selection.")
+    return parse_input([0, 3], " >>> ", " Please enter a valid selection.")
 
 
 

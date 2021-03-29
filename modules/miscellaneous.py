@@ -36,8 +36,8 @@ def clear():
 
 
 # Displays 'Press Enter to Continue...', postponing the program until user confirmation (presses Enter).
-def pause():
-    input("Press Enter to Continue...")
+def pause(msg = "Press Enter to Continue..."):
+    input(msg)
 
 
 # Prints a long single line of text into multiple shortened lines.
@@ -68,18 +68,23 @@ def sleep(t):
 
 
 # Keeps asking for a valid int within a restriction and returns a valid input.
-def parse_input_int(restriction, message, error_message) -> int:
-    while True:
-        # Try to parse the input to int
-        try:
-            number = int(input(message))
-            # If the valid int entered is within the restriction, when return the valid input.
-            if restriction[0] <= number <= restriction[1]:
-                return number
-            print(error_message)
-        # When cannot parse, print error message and loop again.
-        except ValueError:
-            print(error_message)
+def parse_input(restriction, message, error_message):
+    # Try to parse the input to int
+    try:
+        number = int(input(message))
+        # If the valid int entered is within the restriction, when return the valid input.
+        if restriction[0] <= number <= restriction[1]:
+            return number
+        print(error_message)
+        pause("Press Enter to try again...")
+        clear()
+        return None
+    # When cannot parse, print error message and loop again.
+    except ValueError:
+        print(error_message)
+        pause("Press Enter to try again...")
+        clear()
+        return None
 
 
 # Returns the total score for a particular subject
@@ -173,26 +178,38 @@ def unlock_first_level():
 
 
 # Print the answer selection list in questions and check if selection is correct.
-def print_selection_list(selection, answer):
+def print_selection_list(selection, current_question, question, answer, score):
     selection.append(round(answer, 2))
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']
-    # Print the answews
-    for i in range(1, 5):
-        print('\t', alpha[i - 1] + ')', selection[i - 1])
 
     answers = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
     while True:
+        # Print the current questions number
+        print(f"Question: {current_question}/{shared.question_amt}")
+        # Print the current score
+        print(f"Score: {score}")
+        # Print out the question
+        print(f"{current_question}) {question}")
+        # Print the answews
+        for i in range(1, 5):
+            print('\t', alpha[i - 1] + ')', selection[i - 1])
         try:
             user_answer = input("---> ").lower()
+            # If the valid int entered is within the restriction, when return the valid input.
             if user_answer in answers:
                 if answers[user_answer] in range(1, 5):
                     break
             else:
-                print("Please enter a value from A to D")
+                print("Please Enter a value from A to D")
+                pause("Press Enter to try again...")
+                clear()
+        # When cannot parse, print error message and loop again.
         except ValueError:
-            print("Please enter a value from A to D")
+            print("Please Enter a value from A to D")
+            pause("Press Enter to try again...")
+            clear()
 
     if selection[answers[user_answer] - 1] == answer:
         print("Correct!")
