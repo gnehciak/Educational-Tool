@@ -64,13 +64,13 @@ def algebra_levels():
         print("Finish the learn section to unlock the first level.") if check_level(shared.currentSubject,
                                                                                     1) == '█' else ''
         level = parse_input([0, 5], ' >>> ', "Please enter a value between 1-5.")
-        if level == None:
+        if level is None:
             continue
         # If input is 0 then return and go back to previous menu
         if int(level) == 0:
             return False
         # If level is unlocked then break the loop
-        if check_level(shared.currentSubject, level) == (level):
+        if check_level(shared.currentSubject, level) == level:
             break
         # Else print the level is locked
         print("Level locked!")

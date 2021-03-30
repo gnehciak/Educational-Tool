@@ -10,29 +10,26 @@ from modules.login import *
 
 # Main menu function, contains the navigation for different topics and logout.
 def main_menu():
-    # Prints out awesome stuff!
+
+    # Get the scores for the 3 subjects.
     scores = []
     for i in range(1, 4):
         shared.currentSubject = i
         scores.append(int(get_score()))
-    print()
-    print(f" Welcome! {shared.activeUser}\n")
-    print(" <<<Choose a course below>>>")
-    print(f"""
-┌───┐  ┌─┐┬  ┌─┐┌─┐┌┐ ┬─┐┌─┐
+
+    # Prints out awesome stuff!
+    print(f"\n Welcome! {shared.activeUser}\n <<<Choose a course below>>>")
+    print(f"""\n┌───┐  ┌─┐┬  ┌─┐┌─┐┌┐ ┬─┐┌─┐
 │ 1 │  ├─┤│  │ ┬├┤ ├┴┐├┬┘├─┤      Score: {scores[0]}
 └───┘  ┴ ┴┴─┘└─┘└─┘└─┘┴└─┴ ┴""")
-    print(f"""
-┌───┐  ┌─┐┌─┐┌─┐┌┬┐┌─┐┌┬┐┬─┐┬ ┬
+    print(f"""\n┌───┐  ┌─┐┌─┐┌─┐┌┬┐┌─┐┌┬┐┬─┐┬ ┬
 │ 2 │  │ ┬├┤ │ ││││├┤  │ ├┬┘└┬┘   Score: {scores[1]}
 └───┘  └─┘└─┘└─┘┴ ┴└─┘ ┴ ┴└─ ┴""")
-    print(f"""
-┌───┐  ┌─┐┬─┐┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
+    print(f"""\n┌───┐  ┌─┐┬─┐┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
 │ 3 │  ├┤ ├┬┘├─┤│   │ ││ ││││└─┐  Score: {scores[2]}
 └───┘  └  ┴└─┴ ┴└─┘ ┴ ┴└─┘┘└┘└─┘""")
     print(f"\n (Total Score: {scores[0] + scores[1] + scores[2]})")
-    print()
-    print(" Enter 0 to sign out.")
+    print("\n Enter 0 to sign out.")
 
     # Keep asking for a valid value between 0-3 until a valid one is entered.
     return parse_input([0, 3], " >>> ", " Please enter a valid selection.")
@@ -45,7 +42,8 @@ while log_in():
     clear()
     # Keep the user in the main menu until break is called.
     while True:
-        # The main menu returns the selection from 0-3, which will be used to call different functions here.
+        # The main menu returns the selection from 0-3, which represents different subjects and will be used to call
+        # different functions here.
         subject = main_menu()
         clear()
         # If the selection from main_menu() is 0, then it will break the main menu loop and go back to the login screen.

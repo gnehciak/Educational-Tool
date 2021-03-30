@@ -30,12 +30,12 @@ def inputp(y, x, txt):
     return input(txt)
 
 
-# Clears the screen, only works when launched in Command Line.
+# Clears the screen.
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-# Displays 'Press Enter to Continue...', postponing the program until user confirmation (presses Enter).
+# Displays 'Press Enter to Continue...' or a custom message, pausing the program until user presses enter.
 def pause(msg = "Press Enter to Continue..."):
     input(msg)
 
@@ -92,10 +92,13 @@ def get_score():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
         text = ''.join(text.readlines()).split('\n')
+        # Find the user is the user_data file.
         for i in text:
             if i.split(',')[0] == shared.activeUser:
-                new = i.split(',')
-                return new[shared.currentSubject].split(':')[1]
+                # Split user's data
+                user = i.split(',')
+                # Return the score of the current subject.
+                return user[shared.currentSubject].split(':')[1]
 
 
 # Print the menu
@@ -103,24 +106,23 @@ def get_subject_menu():
     return """
 \t┌───┐  ╦  ┌─┐┌─┐┬─┐┌┐┌
 \t│ 1 │  ║  ├┤ ├─┤├┬┘│││
-\t└───┘  ╩═╝└─┘┴ ┴┴└─┘└┘
-
+\t└───┘  ╩═╝└─┘┴ ┴┴└─┘└┘\n
 \t┌───┐  ╔═╗┌─┐┬  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┬  ┬┌─┐┬  
 \t│ 2 │  ╚═╗├┤ │  ├┤ │   │   ║  ├┤ └┐┌┘├┤ │  
-\t└───┘  ╚═╝└─┘┴─┘└─┘└─┘ ┴   ╩═╝└─┘ └┘ └─┘┴─┘
-
+\t└───┘  ╚═╝└─┘┴─┘└─┘└─┘ ┴   ╩═╝└─┘ └┘ └─┘┴─┘\n
 \t┌───┐  ╔╗ ┌─┐┌─┐┬┌─
 \t│ 3 │  ╠╩╗├─┤│  ├┴┐
-\t└───┘  ╚═╝┴ ┴└─┘┴ ┴
-"""
+\t└───┘  ╚═╝┴ ┴└─┘┴ ┴\n"""
 
 
 # Prints the message "Congratulations!..."
 def unlock_next_level():
     with open('data/csv/user_data.csv') as f:
         reader = csv.reader(f)
+        # Find user is user_data file.
         for record in reader:
             if record[0] == shared.activeUser:
+                # If the next level is not unlocked and the current level is not 5, then print the unlocked message.
                 if int(record[shared.currentSubject].split(':')[0]) <= 5:
                     print("Congratulations! You've unlocked the next level:")
                     print("Level", int(record[shared.currentSubject].split(':')[0]) + 1, 'unlocked.')
@@ -130,24 +132,30 @@ def unlock_next_level():
 # Unlocks the next level
 def add_level():
     with open('data/csv/user_data.csv', 'r+') as f:
-
         text = f
         text = ''.join(text.readlines()).split('\n')
+        # Find user in user_data file.
         for i in text:
             if i.split(',')[0] == shared.activeUser:
+                # Split the data
                 new = i.split(',')
+                # Add 1 to the level.
                 new[shared.currentSubject] = ':'.join(
                     [str(int(new[shared.currentSubject].split(':')[0]) + 1),
                      new[shared.currentSubject].split(':')[1]])
+                # Rejoin the data
                 new = ','.join(new)
+                # Replace the old data with the new one.
                 text[text.index(i)] = new
+        # Rejoin the whole file.
         text = '\n'.join(text)
 
+    # Write the file.
     with open('data/csv/user_data.csv', 'w') as f:
         f.writelines(text)
 
 
-# Generate random number for geometry.
+# Generate random numbers for geometry.
 def gen_rand_geometry(level):
     return str(random.randrange(1, 2 ** level) + random.choice([0, 0.5, 1, 1.5]) if level < 3 else str(
         random.randrange(1, 3 ** level) + random.choice([0, 0.25, 0.5, 0.75])))
@@ -164,12 +172,19 @@ def unlock_first_level():
     with open('data/csv/user_data.csv', 'r+') as f:
         text = f
         text = ''.join(text.readlines()).split('\n')
+        # Find user in user_data file.
         for i in text:
+            # If the first level is not unlocked.
             if i.split(',')[0] == shared.activeUser and i.split(',')[shared.currentSubject].split(':')[0] == '0':
+                # Split the data
                 new = i.split(',')
+                # Set the current subject level to 1.
                 new[shared.currentSubject] = '1:0'
+                # Rejoin the data.
                 new = ','.join(new)
+                # Replace old data with new.
                 text[text.index(i)] = new
+        # Rejoin the file
         text = '\n'.join(text)
     # Write the File
     with open('data/csv/user_data.csv', 'w') as f:
@@ -179,7 +194,9 @@ def unlock_first_level():
 
 # Print the answer selection list in questions and check if selection is correct.
 def print_selection_list(selection, current_question, question, answer, score):
+    # Add the correct answer to the selection list.
     selection.append(round(answer, 2))
+    # Shuffle the list.
     random.shuffle(selection)
     alpha = ['a', 'b', 'c', 'd']
 
@@ -192,9 +209,10 @@ def print_selection_list(selection, current_question, question, answer, score):
         print(f"Score: {score}")
         # Print out the question
         print(f"{current_question}) {question}")
-        # Print the answews
+        # Print out the answers
         for i in range(1, 5):
             print('\t', alpha[i - 1] + ')', selection[i - 1])
+        # Get user_answer.
         try:
             user_answer = input("---> ").lower()
             # If the valid int entered is within the restriction, when return the valid input.
@@ -211,14 +229,17 @@ def print_selection_list(selection, current_question, question, answer, score):
             pause("Press Enter to try again...")
             clear()
 
+    # If the user_answer matches the correct answer, print correct and return 1 score.
     if selection[answers[user_answer] - 1] == answer:
         print("Correct!")
         return 1
-
+    # Else print incorrect and return 0 scores.
     print("Incorrect.")
+    # Print out the correct answer. (useful feedback)
+    print("The correct answer is", alpha[list(selection).index(answer)])
     return 0
 
-
+# Prints out the login screen.
 def print_login():
     print("""
 \t ██████╗ ██╗   ██╗██╗███████╗███████╗██╗      ██████╗ ████████╗ ™

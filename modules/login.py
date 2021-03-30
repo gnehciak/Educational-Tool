@@ -1,6 +1,5 @@
 from modules.miscellaneous import *
 import sys
-#import stdiomask
 from modules.fireworks import *
 from modules.help import *
 
@@ -8,10 +7,10 @@ from modules import stdiomask
 
 
 def log_in():
+    # If not running under command line environment, warn the user.
     if not sys.stdin.isatty():
         print("Please run in command line.")
         pause()
-        return False
     set_window_size(80, 24)
 
     hor_border = "|______________________________________________________________________________|\n"
@@ -35,6 +34,7 @@ def log_in():
             os.system("mode con cols=110 lines=35")
             os.system('CLS')
             printp(11, 1, '\t\t\tBye~')
+            sleep(1)
             print_firework()
             time.sleep(1)
             return False
@@ -62,9 +62,9 @@ def log_in():
             if user_found:
                 printp(21, 1, ver_border)
                 move(21, 1)
-                ipt_password = stdiomask.getpass("| Password: ")
+                ipt_password = stdiomask.getpass("| Password: ").strip()
                 # If password is correct, return True.
-                if ipt_password == user[1]:
+                if ipt_password == user[1].strip():
                     shared.activeUser = ipt_username
                     printp(13, 1, ver_border)
                     printp(14, 1, ver_border)
@@ -127,6 +127,7 @@ def register():
         print(" Enter 'exit' to go back.")
         print("\n Requirements:")
         print("\tUsername is case sensitive.")
+        print("\t* Password cannot be empty.")
         print("\t* Cannot contain any spaces.")
         print("\t* Must contain at least one letter.")
         print("\t* Only letters, numbers, commas, and underscores can be used.\n")
@@ -161,6 +162,10 @@ def register():
 
     # Get password
     ipt_password = input("Password: ")
+    while not ipt_password:
+        print("Password cannot be empty")
+        ipt_password = input("Password: ")
+    
     # Register the input into the login.csv file.
     with open('data/csv/login.csv', 'a') as f:
         f.writelines('\n' + ipt_username + ',' + ipt_password)
