@@ -32,8 +32,8 @@ def log_in():
             continue
         # Is the username entered is exit, then quit the program.
         if ipt_username.lower() == 'exit':
-            os.system("mode con cols=110 lines=35")
-            os.system('CLS')
+            set_window_size(110, 35)
+            clear()
             printp(11, 1, '\t\t\tBye~')
             print_firework()
             time.sleep(1)

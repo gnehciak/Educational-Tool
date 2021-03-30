@@ -1,5 +1,6 @@
 import csv
 import os
+import sys
 import textwrap
 import time
 import random
@@ -155,7 +156,10 @@ def gen_rand_geometry(level):
 
 # Set the window size.
 def set_window_size(x, y):
-    os.system(f"mode con cols={x} lines={y}")
+    if os.name == 'nt':
+        os.system(f"mode con cols={x} lines={y}")
+    else:
+        sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=y, cols=x))
     return 0
 
 
