@@ -1,4 +1,6 @@
 import time, os
+from modules.miscellaneous import clear
+
 def print_firework():
     length = 32
     with open('data/txt/fireworks.txt') as f:
@@ -14,7 +16,7 @@ def print_firework():
     for frame in frames:
         print(frame)
         time.sleep(0.01)
-        os.system('CLS')
+        clear()
 
 """
 def prime_factors(n):
