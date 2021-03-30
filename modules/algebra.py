@@ -33,7 +33,7 @@ def algebra_learn():
     with open('data/txt/algebra_learn.txt') as f:
         for line in f:
             # Print the individuals lines from the file and wrap the text.
-            print_wrap(line, 100)
+            print_wrap(line, 80)
             # Pause to wait for user input.
             pause()
     # Set the level to 1, unlocks the first level.

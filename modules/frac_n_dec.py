@@ -29,7 +29,7 @@ def frac_n_dec_learn():
     # Display the fraction learn text
     with open('data/txt/fraction_learn.txt', 'r') as f:
         for line in f:
-            print_wrap(line, 100)
+            print_wrap(line, 80)
             pause()
     # Set the level to 1, unlocks the first level.
     unlock_first_level()
