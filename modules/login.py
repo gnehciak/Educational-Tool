@@ -130,7 +130,7 @@ def register():
         print("\t* Password cannot be empty.")
         print("\t* Cannot contain any spaces.")
         print("\t* Must contain at least one letter.")
-        print("\t* Only letters, numbers, commas, and underscores can be used.\n")
+        print("\t* Only letters, numbers, period, and underscore can be used.\n")
 
         # Get the username
         ipt_username = input("Username: ")
